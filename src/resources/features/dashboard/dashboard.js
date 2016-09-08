@@ -11,9 +11,4 @@ export class Dashboard {
         this.authService = authService;
         this.dashboardService.getSecretThing();
     }
-
-    logout() {
-        this.authService.logout();   
-        this.router.navigate("login");
-    }
 }
