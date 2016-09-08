@@ -1,17 +1,23 @@
-const modulePrefix = 'features';
+const modulePrefix = 'resources/features';
 
 export default [
   {
       route:    '',
       moduleId: `${modulePrefix}/dashboard/dashboard`,
       name:     'dashboard',
-      title:    'Dashboard'
+      title:    'Dashboard',
+      settings: {
+          reqLogin: true
+      }
   },
   {
       route:    'settings',
       moduleId: `${modulePrefix}/account/settings`,
       name:     'settings',
-      title:    'Settings'
+      title:    'Settings',
+      settings: {
+          reqLogin: true
+        }
   },
   {
     route:      'login',
