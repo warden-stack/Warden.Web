@@ -41,6 +41,9 @@ export default class ApiBaseService {
             body:   json(params),
             headers: this.getHeaders()
         });
+        if(response.status === 200){
+          return response;
+        }
         if (response.status != 201) {
             // Standard response with JSON body
             return response.json();

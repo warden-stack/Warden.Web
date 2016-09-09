@@ -15,7 +15,7 @@ export class Login {
         this.lock = authService.getAuth0Lock();
         authService.authenticateViaAuth0(this.lock,
             function(authResult, profile) {
-                self.userService.register(profile.user_id)
+                self.userService.signIn(authResult.accessToken)
                     .then(response => {
                         self.redirectToDashboard();
                     });
