@@ -13,13 +13,14 @@ export default class SignalRService {
         var accessToken = this.authService.accessToken;
         $.connection.hub.url = this.appConfig.signalRUrl;
         $.connection.hub.qs = { accessToken, organizationId, wardenId};
+        console.log(`Starting SignalR - organization id ${organizationId}, warden id: ${wardenId}, accessToken: ${accessToken}.`)
         var wardenHub = $.connection.wardenHub;
         wardenHub.client.checkSaved = function (check) {
             onCheckSaved(check);
         };
         $.connection.hub.start()
             .done(function() {
-                console.log("Connected to the Warden Hub.");
+                console.log("Established connection to the Warden Hub.");
             })
             .fail(function() {
                 console.log("Could not connect to the Warden Hub.");

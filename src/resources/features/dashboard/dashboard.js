@@ -16,12 +16,19 @@ export class Dashboard {
     }
 
     async activate(){
-        let organizations = await this.organizationService.getAll();
+        this.organizations = await this.organizationService.getAll();
+    }
 
-        //TODO: Remove hardcoded values.
-        var organizationId = "WzoJnQI0oEq5tmu9irTKXg";
-        var wardenId = "R8wO5nNnXU6kFojXyiG1GA";
-        this.signalRService.initialize(organizationId, wardenId, function(check) {
+    initializeSignalR(organization){
+        if(organization.wardens.length === 0){
+            console.log("No Wardens have been found.")
+
+            return;
+        }
+
+        var warden = organization.wardens[0];
+        console.log(`Initializing default Warden: ${warden.name} for organization: ${organization.name}`)
+            this.signalRService.initialize(organization.id, warden.id, function(check) {
             console.log("Received Warden check from Hub.", check);
         });
     }

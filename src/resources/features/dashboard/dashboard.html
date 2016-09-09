@@ -1,3 +1,10 @@
 <template>
     <h2>Dashboard</h2>
+    <div class="row">
+    	<div class="col s12 m6 l4" repeat.for="organization of organizations">
+			<h4>${organization.name}</h3>
+			<br/>
+			<button class="waves-effect waves-light btn custom" click.delegate="initializeSignalR(organization)">Initialize SignalR</button>
+    	</div>
+    </div>
 </template>
