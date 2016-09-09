@@ -2,7 +2,7 @@ let AppConfig = {
     title: 'Warden',
     apiUrl: 'http://localhost:20899/',
     idTokenStorageKey: 'idToken',
-    accessTokentorageKey: 'accessToken',
+    accessTokenStorageKey: 'accessToken',
     profileStorageKey: 'profile',
     defaultLanguage: 'en',
     signalRUrl: "http://localhost:20899/signalr",

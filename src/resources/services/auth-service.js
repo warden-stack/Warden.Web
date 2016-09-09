@@ -20,15 +20,15 @@ export default class AuthService {
     }
 
     get accessToken() {
-        return localStorage.getItem(this.appConfig.idTokenStorageKey);
+        return localStorage.getItem(this.appConfig.accessTokenStorageKey);
     }
 
     set accessToken(newToken) {
-        localStorage.setItem(this.appConfig.idTokenStorageKey, newToken);
+        localStorage.setItem(this.appConfig.accessTokenStorageKey, newToken);
     }
 
     accessToken() {
-        localStorage.removeItem(this.appConfig.idTokenStorageKey);
+        localStorage.removeItem(this.appConfig.accessTokenStorageKey);
     }
 
     get isLoggedIn() {
@@ -49,8 +49,11 @@ export default class AuthService {
 
     authorizeRequest(request) {
         if (this.idToken && request.headers.append) {
-            request.headers.append('Authorization', `Bearer ${this.idToken}`);
+            //console.log("Authorizing request " + request.url + " using token " + this.idToken);
+            //request.headers.append("Authorization", `Bearer ${this.idToken}`);
+            //console.log(request.headers);
         }
+
         return request;
     }
 

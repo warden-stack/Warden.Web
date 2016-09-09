@@ -7,6 +7,7 @@ import AuthService from 'resources/services/auth-service';
 @inject(HttpClient, AuthService, AppConfig)
 export default class ApiBaseService {
     constructor(http, authService, appConfig) {
+        this.authService = authService;
         this.http = http;
         this.http.configure(config => {
             config
@@ -17,26 +18,28 @@ export default class ApiBaseService {
                       'Accept':           'application/json',
                       'X-Requested-With': 'Fetch'
                   }
-              })
-              .withInterceptor({
-                  request(request) {
-                      return authService.authorizeRequest(request);
-                  }
               });
-        });
+              //.withInterceptor({
+              //   request(request) {
+              //        return authService.authorizeRequest(request);
+              //    }
+              //});
 
         this.baseCorsResponseHeaderNames = ['cache-control', 'content-type'];
+      });
     }
 
     async get(path) {
-        const response = await this.http.fetch(path);
+        const response = await this.http.fetch(path, {headers: this.getHeaders()});
+
         return response.json();
     }
 
     async post(path, params) {
         const response = await this.http.fetch(path, {
             method: 'post',
-            body:   json(params)
+            body:   json(params),
+            headers: this.getHeaders()
         });
         if (response.status != 201) {
             // Standard response with JSON body
@@ -57,6 +60,10 @@ export default class ApiBaseService {
             reject(Error("Response 201 didn't contain any resource-related headers"));
         }
     });
-}
-}
+    }
+  }
+
+  getHeaders(){
+    return {"Authorization": `Bearer ${this.authService.idToken}`};
+  }
 }
