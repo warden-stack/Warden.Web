@@ -19,6 +19,18 @@ export default class AuthService {
         localStorage.removeItem(this.appConfig.idTokenStorageKey);
     }
 
+    get accessToken() {
+        return localStorage.getItem(this.appConfig.idTokenStorageKey);
+    }
+
+    set accessToken(newToken) {
+        localStorage.setItem(this.appConfig.idTokenStorageKey, newToken);
+    }
+
+    accessToken() {
+        localStorage.removeItem(this.appConfig.idTokenStorageKey);
+    }
+
     get isLoggedIn() {
         return !!this.idToken;
     }
@@ -58,8 +70,9 @@ export default class AuthService {
                         }
 
                         self.idToken = authResult.idToken;
+                        self.accessToken = authResult.accessToken;
                         self.profile = JSON.stringify(profile);
-                        next();
+                        next(authResult,profile);
                     });
             });
     }

@@ -15,7 +15,7 @@ export default class ApiBaseService {
                   headers: {
                       'content-type':     'application/json',
                       'Accept':           'application/json',
-                      'X-Requested-With': 'Fetch',
+                      'X-Requested-With': 'Fetch'
                   }
               })
               .withInterceptor({
