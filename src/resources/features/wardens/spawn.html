@@ -1,0 +1,8 @@
+<template>
+	<require from="resources/components/text-editor"></require>
+    <div>
+        <h2>Spawn</h2>
+		<button class="waves-effect waves-light btn custom" click.delegate="spawn()" disabled.bind="wardenSpawned">Spawn Warden</button>
+		<text-editor value.bind="code"></text-editor>
+    </div>
+</template>

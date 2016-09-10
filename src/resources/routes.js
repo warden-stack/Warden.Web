@@ -51,6 +51,16 @@ export default [
         }
     },
     {
+        route:    'spawn',
+        moduleId: `${modulePrefix}/wardens/spawn`,
+        name:     'spawn',
+        title:    'Spawn',
+        nav:      true,
+        settings: {
+            reqLogin: true
+        }
+    },
+    {
         route:    'test-output',
         moduleId: `${modulePrefix}/wardens/test-output`,
         name:     'test-output',
