@@ -10,7 +10,7 @@ export class OrganizationUsers {
     }
 
     async activate(params){
-        this.organization = await this.organizationService.get(params.id);
+        let organization = await this.organizationService.getSingle(params.id);
         this.users = organization.users;
     }
 }
