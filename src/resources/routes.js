@@ -40,6 +40,24 @@ export default [
             reqLogin: true
         }
     },
+        {
+        route:    'organizations/:id/wardens',
+        moduleId: `${modulePrefix}/organizations/organization-wardens`,
+        name:     'organizationWardens',
+        title:    'Organization Wardens',
+        settings: {
+            reqLogin: true
+        }
+    },
+    {
+        route:    'organizations/:id/users',
+        moduleId: `${modulePrefix}/organizations/organization-users`,
+        name:     'organizationUsers',
+        title:    'Organization Users',
+        settings: {
+            reqLogin: true
+        }
+    },
     {
         route:    'wardens',
         moduleId: `${modulePrefix}/wardens/wardens`,
