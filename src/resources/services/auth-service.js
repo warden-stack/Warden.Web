@@ -27,8 +27,28 @@ export default class AuthService {
         localStorage.setItem(this.appConfig.accessTokenStorageKey, newToken);
     }
 
-    accessToken() {
+    removeAccessToken() {
         localStorage.removeItem(this.appConfig.accessTokenStorageKey);
+    }
+    
+    get apiKeys(){
+        return JSON.parse(localStorage.getItem(this.appConfig.apiKeysStorageKey));
+    }
+
+    set apiKeys(apiKeys) {
+        return localStorage.setItem(this.appConfig.apiKeysStorageKey, JSON.stringify(apiKeys));
+    }
+
+    get defaultApiKey(){
+        var apiKeys = this.apiKeys;
+        if(apiKeys.length === 0)
+            return "Missing API key";
+        
+        return apiKeys[0];
+    }
+
+    removeApiKeys() {
+        localStorage.removeItem(this.appConfig.apiKeysStorageKey);
     }
 
     get isLoggedIn() {
@@ -82,6 +102,8 @@ export default class AuthService {
 
     logout () {
         this.removeIdToken();
+        this.removeAccessToken();
+        this.removeApiKeys();
         this.removeProfile();
     }
 }

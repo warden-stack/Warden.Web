@@ -3,6 +3,7 @@ let AppConfig = {
     apiUrl: 'http://localhost:20899/',
     idTokenStorageKey: 'idToken',
     accessTokenStorageKey: 'accessToken',
+    apiKeysStorageKey: 'apiKeys',
     profileStorageKey: 'profile',
     defaultLanguage: 'en',
     signalRUrl: "http://localhost:20899/signalr",
