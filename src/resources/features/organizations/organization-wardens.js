@@ -12,7 +12,7 @@ export class OrganizationWardens {
         this.organizationService = organizationService;
         this.signalRService = signalRService;
         this.apiKey = authService.defaultApiKey;
-        this.apiUrl = appConfig.apiUrl.substring(0, appConfig.apiUrl.length - 1);
+        this.signalRUrl = appConfig.signalRUrl;
     }
 
     async activate(params){
