@@ -1,17 +1,16 @@
 import {inject} from 'aurelia-framework';
-import AppConfig from 'resources/app-config'
+import environment from '../../environment';
 import AuthService from 'resources/services/auth-service';
 
-@inject(AuthService, AppConfig)
+@inject(AuthService)
 export default class SignalRService {
-    constructor(authService, appConfig) {
+    constructor(authService) {
         this.authService = authService;
-        this.appConfig = appConfig;
     }
 
     initialize(organizationId, wardenId, onCheckSaved) {
         var accessToken = this.authService.accessToken;
-        var hubConnection = $.hubConnection(this.appConfig.signalRUrl, { qs: {accessToken, organizationId, wardenId}, logging: false, useDefaultPath: false });
+        var hubConnection = $.hubConnection(environment.signalRUrl, { qs: {accessToken, organizationId, wardenId}, logging: false, useDefaultPath: false });
         var wardenHub = hubConnection.createHubProxy('wardenHub');
         console.log(`Starting SignalR - organization id ${organizationId}, warden id: ${wardenId}, accessToken: ${accessToken}.`)
         // var wardenHub = $.connection.wardenHub;

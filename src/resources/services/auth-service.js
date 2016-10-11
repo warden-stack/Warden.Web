@@ -1,42 +1,40 @@
 import {inject} from 'aurelia-framework';
-import AppConfig from 'resources/app-config';
+import environment from '../../environment';
 
-@inject(AppConfig)
 export default class AuthService {
-    constructor(appConfig) {
-        this.appConfig = appConfig;
+    constructor() {
     }
 
     get idToken() {
-        return localStorage.getItem(this.appConfig.idTokenStorageKey);
+        return localStorage.getItem(environment.idTokenStorageKey);
     }
 
     set idToken(newToken) {
-        localStorage.setItem(this.appConfig.idTokenStorageKey, newToken);
+        localStorage.setItem(environment.idTokenStorageKey, newToken);
     }
 
     removeIdToken() {
-        localStorage.removeItem(this.appConfig.idTokenStorageKey);
+        localStorage.removeItem(environment.idTokenStorageKey);
     }
 
     get accessToken() {
-        return localStorage.getItem(this.appConfig.accessTokenStorageKey);
+        return localStorage.getItem(environment.accessTokenStorageKey);
     }
 
     set accessToken(newToken) {
-        localStorage.setItem(this.appConfig.accessTokenStorageKey, newToken);
+        localStorage.setItem(environment.accessTokenStorageKey, newToken);
     }
 
     removeAccessToken() {
-        localStorage.removeItem(this.appConfig.accessTokenStorageKey);
+        localStorage.removeItem(environment.accessTokenStorageKey);
     }
     
     get apiKeys(){
-        return JSON.parse(localStorage.getItem(this.appConfig.apiKeysStorageKey));
+        return JSON.parse(localStorage.getItem(environment.apiKeysStorageKey));
     }
 
     set apiKeys(apiKeys) {
-        return localStorage.setItem(this.appConfig.apiKeysStorageKey, JSON.stringify(apiKeys));
+        return localStorage.setItem(environment.apiKeysStorageKey, JSON.stringify(apiKeys));
     }
 
     get defaultApiKey(){
@@ -48,7 +46,7 @@ export default class AuthService {
     }
 
     removeApiKeys() {
-        localStorage.removeItem(this.appConfig.apiKeysStorageKey);
+        localStorage.removeItem(environment.apiKeysStorageKey);
     }
 
     get isLoggedIn() {
@@ -56,15 +54,15 @@ export default class AuthService {
     }
 
     get profile() {
-        return localStorage.getItem(this.appConfig.profileStorageKey);
+        return localStorage.getItem(environment.profileStorageKey);
     }
 
     set profile(newProfile) {
-        localStorage.setItem(this.appConfig.profileStorageKey, newProfile);
+        localStorage.setItem(environment.profileStorageKey, newProfile);
     }
 
     removeProfile() {
-        localStorage.removeItem(this.appConfig.profileStorageKey);
+        localStorage.removeItem(environment.profileStorageKey);
     }
 
     authorizeRequest(request) {
@@ -78,7 +76,7 @@ export default class AuthService {
     }
 
     getAuth0Lock() {
-        return new Auth0Lock(this.appConfig.auth0.token, this.appConfig.auth0.domain);
+        return new Auth0Lock(environment.auth0.token, environment.auth0.domain);
     }
 
     authenticateViaAuth0(lock, next) {
