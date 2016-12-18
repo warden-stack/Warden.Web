@@ -6,13 +6,13 @@ import SignalRService from 'resources/services/signalr-service';
 
 @inject(Router, DashboardService, AuthService, SignalRService)
 export class Dashboard {
-    constructor(router, dashboardService, authService, signalRService) {
-        this.router = router;
-        this.dashboardService = dashboardService;
-        this.authService = authService;
-        this.signalRService = signalRService;
-    }
+  constructor(router, dashboardService, authService, signalRService) {
+    this.router = router;
+    this.dashboardService = dashboardService;
+    this.authService = authService;
+    this.signalRService = signalRService;
+  }
 
-    async activate(){
-    }
+  async activate() {
+  }
 }

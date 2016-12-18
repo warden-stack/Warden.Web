@@ -1,18 +1,47 @@
-require('node_modules/babel-polyfill/dist/polyfill.js')
+import XHR from 'i18next-xhr-backend';
+import LanguageDetectionService from 'resources/services/language-detection-service';
 import environment from './environment';
 
-//Configure Bluebird Promises.
-//Note: You may want to use environment-specific configuration.
-//Promise.config({
-//  warnings: {
-//    wForgottenReturn: false
-//  }
-//});
+// Configure Bluebird Promises.
+// Note: You may want to use environment-specific configuration.
+Promise.config({
+  warnings: {
+    wForgottenReturn: false
+  }
+});
 
 export function configure(aurelia) {
   aurelia.use
     .standardConfiguration()
-    .feature('resources');
+    .feature('resources')
+    .plugin('aurelia-materialize-bridge', bridge => {
+      bridge.useAutoComplete()
+            .useButton()
+            .useCheckbox()
+            .useDropdown()
+            .useFile()
+            .useInput()
+            .useModal()
+            .useProgress()
+            .useRadio()
+            .useRange()
+            .useSelect()
+            .useSwitch();
+    })
+    .plugin('aurelia-validation')
+    .plugin('aurelia-ui-virtualization')
+    .plugin('aurelia-i18n', (instance) => {
+      instance.i18next.use(XHR);
+      instance.i18next.use(LanguageDetectionService);
+      instance.setup({
+        backend: {
+          loadPath: '/locales/{{lng}}/{{ns}}.json'
+        },
+        attributes: ['t', 'i18n'],
+        fallbackLng: environment.defaultLanguage,
+        debug: environment.debug
+      });
+    });
 
   if (environment.debug) {
     aurelia.use.developmentLogging();

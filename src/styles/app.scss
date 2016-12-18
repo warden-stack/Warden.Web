@@ -3,6 +3,7 @@ $medium-color: #9999E9;
 $light-color: #C8C8F7;
 $background-color: #FAFAFF;
 $error-color: #BF3131;
+$mobile-width: 992px;
 
 body {
     background-color: $background-color;
@@ -58,3 +59,39 @@ nav {
     background-color: $medium-color;
   }
 }
+
+.static {
+    position: static !important;
+}
+
+.md-input-validation {
+    left: 0;
+    color: #f44336;
+    font-size: 0.8rem;
+    transition: opacity .2s ease-out;
+    margin-top: -4px;
+    margin-bottom: 0;
+}
+
+.back-btn {
+    width: 40px;
+}
+
+#loader {
+    position: absolute;
+    top: -6px;
+    width: 100%;
+}
+
+@media screen and (max-width: $mobile-width) {
+    .btn:not(.btn-floating) {
+        width: 100%;
+    }
+}
+
+@media screen and (max-height: 700px) {
+    #map {
+        height: 300px;
+    }
+}
+

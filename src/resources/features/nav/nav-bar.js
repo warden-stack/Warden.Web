@@ -5,30 +5,38 @@ import AuthService from 'resources/services/auth-service';
 export class NavBar {
   @bindable router = null;
 
-    constructor(authService) {
-        this.authService = authService;
-    }
+  constructor(authService) {
+    this.authService = authService;
+  }
 
-    attached() {
-        $(".button-collapse").sideNav({
-            closeOnClick: true
-        });
-    }
+  async attached() {
+    $('.button-collapse').sideNav({
+      closeOnClick: true
+    });
+  }
 
-    logout() {
-        this.authService.logout();   
-        this.router.navigate("login");
-    }
+  logout() {
+    this.authService.logout();
+    this.router.navigateToRoute('start');
+  }
 
-    get navigation() {
-        let customNav = [];
-        for (let navModel of this.router.navigation) {
-            if (!
-                ((  this.authService.isLoggedIn && navModel.settings.navHideAfterLogin ) ||
-                 ( !this.authService.isLoggedIn && navModel.settings.reqLogin ))) {
-                customNav.push(navModel);
-            }
-        }
-        return customNav;
+  back() {
+    this.router.navigateBack();
+  }
+
+  get canGoBack() {
+    let routes = [ '/dashboard' ];
+    return !(routes.includes(this.router.history.previousLocation));
+  }
+
+  get navigation() {
+    let customNav = [];
+    for (let navModel of this.router.navigation) {
+      if (!((this.authService.isLoggedIn && navModel.settings.navHideAfterLogin ) ||
+                 (!this.authService.isLoggedIn && navModel.settings.reqLogin ))) {
+        customNav.push(navModel);
+      }
     }
+    return customNav;
+  }
 }

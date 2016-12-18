@@ -1,28 +1,53 @@
-import {inject} from 'aurelia-framework';
 import environment from '../../environment';
-import AuthService from 'resources/services/auth-service';
+import {inject} from 'aurelia-framework';
+import {EventAggregator} from 'aurelia-event-aggregator';
+import * as retry from 'retry';
 
-@inject(AuthService)
+@inject(EventAggregator)
 export default class SignalRService {
-    constructor(authService) {
-        this.authService = authService;
+  constructor(eventAggregator) {
+    this.eventAggregator = eventAggregator;
+    this.connection = null;
+  }
+
+  initialize() {
+    if (this.connection !== null) {
+      return;
     }
 
-    initialize(organizationId, wardenId, onCheckSaved) {
-        var accessToken = this.authService.accessToken;
-        var hubConnection = $.hubConnection(environment.signalRUrl, { qs: {accessToken, organizationId, wardenId}, logging: false, useDefaultPath: false });
-        var wardenHub = hubConnection.createHubProxy('wardenHub');
-        console.log(`Starting SignalR - organization id ${organizationId}, warden id: ${wardenId}, accessToken: ${accessToken}.`)
-        // var wardenHub = $.connection.wardenHub;
-        wardenHub.on('checkSaved', function (check) {
-            onCheckSaved(check);
-        });
-        hubConnection.start()
-            .done(function() {
-                console.log("Established connection to the Warden Hub.");
-            })
-            .fail(function() {
-                console.log("Could not connect to the Warden Hub.");
-            });
-    }
+    this.connection = new RpcConnection(`${environment.signalRUrl}remarks`, 'formatType=json&format=text');
+    this.connection.on('RemarkCreated', (message) => {
+      this.eventAggregator.publish('remark:created', message);
+    });
+    this.connection.on('RemarkResolved', (message) => {
+      this.eventAggregator.publish('remark:resolved', message);
+    });
+    this.connection.on('RemarkDeleted', (message) => {
+      this.eventAggregator.publish('remark:deleted', message);
+    });
+    this.connection.connectionClosed = e => {
+      if (e) {
+        console.log('Connection closed with error: ' + e);
+      }
+      else {
+        console.log('SignalR connection lost');
+        this.connect();
+      }
+    };
+    this.connect();
+  }
+
+  connect() {
+    let operation = retry.operation({
+      retries: 20,
+      factor: 2,
+      minTimeout: 1000,
+      maxTimeout: 5000
+    });
+    operation.attempt(currentAttempt => {
+      console.log(`Connecting to SignalR, attempt:${currentAttempt}`);
+      this.connection.start()
+        .catch(err => operation.retry(err));
+    });
+  }
 }

@@ -1,16 +1,14 @@
 export default {
   debug: true,
   testing: false,
-  title: 'Warden',
+  title: 'Warden [Stage]',
   apiUrl: 'http://localhost:5000/',
-  idTokenStorageKey: 'idToken',
-  accessTokenStorageKey: 'accessToken',
+  sessionStorageKey: 'session',
   apiKeysStorageKey: 'apiKeys',
   profileStorageKey: 'profile',
   defaultLanguage: 'en',
-  signalRUrl: "http://localhost:8081/signalr",
-  auth0: {
-      token: "MjJQ06DjPwQWeXbblLHkwYXrgPBvsHwi",
-      domain: "warden.eu.auth0.com"
+  signalRUrl: 'http://localhost:8081/signalr',
+  facebook: {
+    appId: 'xxx'
   }
 };

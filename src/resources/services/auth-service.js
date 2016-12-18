@@ -1,107 +1,43 @@
 import {inject} from 'aurelia-framework';
+import StorageService from 'resources/services/storage-service';
 import environment from '../../environment';
 
+@inject(StorageService)
 export default class AuthService {
-    constructor() {
+  constructor(storageService) {
+    this.storageService = storageService;
+    this.environment = environment;
+  }
+
+  get token() {
+    if (this.session && new Date(this.session.expiry) > new Date()) {
+      return this.session.token;
     }
 
-    get idToken() {
-        return localStorage.getItem(environment.idTokenStorageKey);
-    }
+    return '';
+  }
 
-    set idToken(newToken) {
-        localStorage.setItem(environment.idTokenStorageKey, newToken);
-    }
+  get session() {
+    return this.storageService.read(this.environment.sessionStorageKey);
+  }
 
-    removeIdToken() {
-        localStorage.removeItem(environment.idTokenStorageKey);
-    }
+  set session(newSession) {
+    this.storageService.write(this.environment.sessionStorageKey, newSession);
+  }
 
-    get accessToken() {
-        return localStorage.getItem(environment.accessTokenStorageKey);
-    }
+  removeSession() {
+    this.storageService.delete(this.environment.sessionStorageKey);
+  }
 
-    set accessToken(newToken) {
-        localStorage.setItem(environment.accessTokenStorageKey, newToken);
-    }
+  get isLoggedIn() {
+    return this.session && !!this.session.token;
+  }
 
-    removeAccessToken() {
-        localStorage.removeItem(environment.accessTokenStorageKey);
-    }
-    
-    get apiKeys(){
-        return JSON.parse(localStorage.getItem(environment.apiKeysStorageKey));
-    }
+  get provider() {
+    return this.isLoggedIn ? this.session.provider : '';
+  }
 
-    set apiKeys(apiKeys) {
-        return localStorage.setItem(environment.apiKeysStorageKey, JSON.stringify(apiKeys));
-    }
-
-    get defaultApiKey(){
-        var apiKeys = this.apiKeys;
-        if(apiKeys.length === 0)
-            return "Missing API key";
-        
-        return apiKeys[0];
-    }
-
-    removeApiKeys() {
-        localStorage.removeItem(environment.apiKeysStorageKey);
-    }
-
-    get isLoggedIn() {
-        return !!this.idToken;
-    }
-
-    get profile() {
-        return localStorage.getItem(environment.profileStorageKey);
-    }
-
-    set profile(newProfile) {
-        localStorage.setItem(environment.profileStorageKey, newProfile);
-    }
-
-    removeProfile() {
-        localStorage.removeItem(environment.profileStorageKey);
-    }
-
-    authorizeRequest(request) {
-        if (this.idToken && request.headers.append) {
-            //console.log("Authorizing request " + request.url + " using token " + this.idToken);
-            //request.headers.append("Authorization", `Bearer ${this.idToken}`);
-            //console.log(request.headers);
-        }
-
-        return request;
-    }
-
-    getAuth0Lock() {
-        return new Auth0Lock(environment.auth0.token, environment.auth0.domain);
-    }
-
-    authenticateViaAuth0(lock, next) {
-        var self = this;
-        lock.on("authenticated",
-            (authResult) => {
-                lock.getProfile(authResult.idToken,
-                    (error, profile) => {
-                        if (error) {
-                            // Handle error
-                            return;
-                        }
-
-                        self.idToken = authResult.idToken;
-                        self.accessToken = authResult.accessToken;
-                        self.profile = JSON.stringify(profile);
-                        next(authResult,profile);
-                    });
-            });
-    }
-
-    logout () {
-        this.removeIdToken();
-        this.removeAccessToken();
-        this.removeApiKeys();
-        this.removeProfile();
-    }
+  logout() {
+    this.storageService.deleteAll();
+  }
 }

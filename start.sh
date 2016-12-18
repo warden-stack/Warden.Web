@@ -6,6 +6,7 @@ if [ $APP_ENV == "-n" ]
 		WATCH="-n"
 		APP_ENV=local
 fi
+node node_modules/.bin/r.js -o rbuild.js
 if [ $WATCH == "-w" ]
 	then
 		node node_modules/aurelia-cli/bin/aurelia-cli.js run --env $APP_ENV --watch

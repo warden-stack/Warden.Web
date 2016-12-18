@@ -88,6 +88,7 @@
       {
         "name": "vendor-bundle.js",
         "prepend": [
+          "node_modules/babel-polyfill/dist/polyfill.js",
           "node_modules/bluebird/js/browser/bluebird.core.js",
           "scripts/require.js"
         ],
@@ -142,6 +143,75 @@
             "name": "whatwg-fetch",
             "path": "../node_modules/whatwg-fetch",
             "main": "fetch"
+          },
+          {
+            "name": "aurelia-validation",
+            "path": "../node_modules/aurelia-validation/dist/amd",
+            "main": "aurelia-validation"
+          },  
+          {
+            "name": "aurelia-i18n",
+            "path": "../node_modules/aurelia-i18n/dist/amd",
+            "main": "aurelia-i18n"
+          },
+          {
+            "name": "i18next",
+            "path": "../node_modules/i18next/dist/umd",
+            "main": "i18next"
+          },
+          {
+            "name": "i18next-xhr-backend",
+            "path": "../node_modules/i18next-xhr-backend/dist/umd",
+            "main": "i18nextXHRBackend"
+          },
+          {
+            "name": "i18next-browser-languagedetector",
+            "path": "../node_modules/i18next-browser-languagedetector/dist/umd",
+            "main": "i18nextBrowserLanguageDetector"
+          },
+          {
+            "name": "moment",
+            "path": "../node_modules/moment",
+            "main": "moment"
+          },
+          {
+            "name": "aurelia-ui-virtualization",
+            "path": "../node_modules/aurelia-ui-virtualization/dist/amd",
+            "main": "aurelia-ui-virtualization"
+          },
+          {
+            "name": "retry",
+            "path": "../node_modules/retry/lib",
+            "main": "retry"
+          }
+        ]
+      },
+      {
+        "name": "materialize-bundle.js",
+        "dependencies": [
+          "jquery",
+          {
+            "name": "materialize-css",
+            "path": "../node_modules/materialize-css/dist",
+            "main": "js/materialize.amd",
+            "deps": [
+              "jquery"
+            ],
+            "resources": [
+              "css/materialize.css"
+            ],
+            "exports": "Materialize"
+          },
+          {
+            "name": "aurelia-materialize-bridge",
+            "path": "../node_modules/aurelia-materialize-bridge/dist/amd",
+            "main": "index",
+            "deps": [
+              "jquery"
+            ],
+            "resources": [
+              "**/*.{css,html}"
+            ]
           }
         ]
       }
