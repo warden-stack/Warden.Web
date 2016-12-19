@@ -9,6 +9,6 @@ export default {
   defaultLanguage: 'en',
   signalRUrl: 'http://localhost:8081/signalr',
   facebook: {
-    appId: 'xxx'
+    appId: '1177058185746003'
   }
 };
