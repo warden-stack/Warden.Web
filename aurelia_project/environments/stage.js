@@ -7,7 +7,7 @@ export default {
   apiKeysStorageKey: 'apiKeys',
   profileStorageKey: 'profile',
   defaultLanguage: 'en',
-  signalRUrl: 'http://localhost:8081/signalr',
+  signalRUrl: 'http://localhost:5054/hub',
   facebook: {
     appId: ''
   }

@@ -10,7 +10,8 @@ export class Dashboard {
     this.router = router;
     this.dashboardService = dashboardService;
     this.authService = authService;
-    this.signalRService = signalRService;
+    this.signalR = signalRService;
+    this.signalR.initialize();
   }
 
   async activate() {
