@@ -51,10 +51,21 @@ export default class OperationService {
     if (!endpoint) {
       return ({success: false, message: 'Operation has not been found.', code: 'error'});
     }
+
+    let requestId = endpoint.split('/')[1];
     if (this.authService.isLoggedIn) {
       //Wait 5 seconds for SignalR to complete - if there's no response then fallback to the API call.
-      this.processedOperations.push({ key: endpoint, value: { completed: false, resource: resource }});
-      setTimeout(async () => await this.tryFetchOperation(endpoint), this.signalRTimeoutSeconds * 1000);
+      this.processedOperations.push({
+        key: endpoint,
+        processed: false,
+        value: { completed: false, resource: resource }
+      });
+      setTimeout(async () => {
+        if (this.isOperationProcessed(requestId)) {
+          return;
+        }
+        await this.tryFetchOperation(endpoint);
+      }, this.signalRTimeoutSeconds * 1000);
 
       return;
     }
@@ -102,13 +113,28 @@ export default class OperationService {
     return await this.apiBaseService.get(endpoint, {}, false);
   }
 
-  handleOperationUpdated(message) {
+  getProcessedOperation(requestId) {
     let key = `operations/${message.requestId}`;
-    let processedOperation = this.processedOperations.find(x => x.key === key);
+
+    return this.processedOperations.find(x => x.key === key);
+  }
+
+  isOperationProcessed(requestId) {
+    let processedOperation = getProcessedOperation(message.requestId);
+    if (processedOperation === null || typeof processedOperation === 'undefined') {
+      return false;
+    }
+
+    return processedOperation.processed;
+  }
+
+  handleOperationUpdated(message) {
+    let processedOperation = getProcessedOperation(message.requestId);
     if (processedOperation === null || typeof processedOperation === 'undefined') {
       return;
     }
 
+    processedOperation.processed = true;
     let operation = processedOperation.value;
     operation.name = message.name;
     operation.completed = true;
