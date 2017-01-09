@@ -9,10 +9,13 @@ import { MaterializeFormValidationRenderer } from 'aurelia-materialize-bridge';
 import UserService from '../../services/user-service';
 import ToastService from 'resources/services/toast-service';
 import LoaderService from 'resources/services/loader-service';
+import OperationService from 'resources/services/operation-service';
 
-@inject(Router, I18N, TranslationService, ValidationControllerFactory, UserService, ToastService, LoaderService)
+@inject(Router, I18N, TranslationService, ValidationControllerFactory, UserService,
+  ToastService, LoaderService, OperationService)
 export class SignUp {
-  constructor(router, i18n, translationService, controllerFactory, userService, toast, loader) {
+  constructor(router, i18n, translationService, controllerFactory, userService,
+    toast, loader, operationService) {
     this.router = router;
     this.i18n = i18n;
     this.translationService = translationService;
@@ -20,6 +23,7 @@ export class SignUp {
     this.account = {};
     this.toast = toast;
     this.loader = loader;
+    this.operationService = operationService;
     this.account = {
       email: '',
       password: '',
@@ -35,8 +39,6 @@ export class SignUp {
       .ensure('name')
         .required()
           .withMessage(this.translationService.tr('account.name_is_required'))
-        .minLength(2)
-          .withMessage(this.translationService.tr('account.name_is_invalid'))
         .maxLength(50)
           .withMessage(this.translationService.tr('account.name_is_invalid'))
         .matches(/^(?![_.-])(?!.*[_.-]{2})[a-zA-Z0-9._.-]+[a-zA-Z0-9]$/)
@@ -58,27 +60,37 @@ export class SignUp {
       .on(this.account);
   }
 
+  attached() {
+    this.operationService.subscribe('sign_up',
+      operation => this._handleSignedUp(operation),
+      operation => this._handleSignUpRejected(operation));
+  }
+
+  detached() {
+    this.operationService.unsubscribeAll();
+  }
+
+  _handleSignedUp(operation) {
+    this.loader.hide();
+    this.toast.success(this.translationService.tr('account.account_created'));
+    this.router.navigateToRoute('sign-in');
+  }
+
+  _handleSignUpRejected(operation) {
+    this.sending = false;
+    this.loader.hide();
+    this.toast.error(this.translationService.trCode(operation.code));
+  }
+
   async submit() {
     let errors = await this.controller.validate();
     if (errors.length > 0) {
-      this.sending = false;
-
       return;
     }
 
-    this.loader.display();
     this.sending = true;
+    this.loader.display();
     this.toast.info(this.translationService.tr('account.creating_account'));
-    let accountCreated = await this.userService.signUp(this.account);
-    if (accountCreated.success) {
-      this.toast.success(this.translationService.tr('account.account_created'));
-      this.loader.hide();
-      this.router.navigateToRoute('sign-in');
-      return;
-    }
-
-    this.sending = false;
-    this.loader.hide();
-    this.toast.error(this.translationService.trCode(accountCreated.code));
+    await this.userService.signUp(this.account);
   }
 }

@@ -2,12 +2,11 @@ import {inject} from 'aurelia-framework';
 import ApiBaseService from 'resources/services/api-base-service';
 import CacheService from 'resources/services/cache-service';
 import AuthService from 'resources/services/auth-service';
-import ToastService from 'resources/services/toast-service';
 import OperationService from 'resources/services/operation-service';
 
-@inject(ApiBaseService, CacheService, AuthService, ToastService, OperationService)
+@inject(ApiBaseService, CacheService, AuthService, OperationService)
 export default class UserService {
-  constructor(apiBaseService, cacheService, authService, toastService, operationService)  {
+  constructor(apiBaseService, cacheService, authService, operationService)  {
     this.apiBaseService = apiBaseService;
     this.operationService = operationService;
   }

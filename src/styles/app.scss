@@ -64,6 +64,17 @@ nav {
     position: static !important;
 }
 
+.spinner-layer {
+   border-color: $primary-color;  
+}
+
+.progress {
+   background-color: $primary-light-color; 
+   .indeterminate {
+     background-color: $secondary-light-color;  
+   }
+}
+
 .md-input-validation {
     left: 0;
     color: #f44336;
