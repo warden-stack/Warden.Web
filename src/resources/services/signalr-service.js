@@ -14,7 +14,7 @@ export default class SignalRService {
   }
 
   initialize() {
-    if (this.connection !== null) {
+    if (this.connected) {
       return;
     }
     if (!this.authService.isLoggedIn) {
@@ -45,6 +45,10 @@ export default class SignalRService {
     this.connect();
   }
 
+  get connected() {
+    return this.connection !== null;
+  }
+
   connect() {
     let operation = retry.operation({
       retries: 20,
@@ -53,7 +57,7 @@ export default class SignalRService {
       maxTimeout: 5000
     });
     operation.attempt(currentAttempt => {
-      console.log(`Connecting to the WardenHub, attempt: ${currentAttempt}`);
+      console.log(`Connecting to the WardenHub, attempt: ${currentAttempt}.`);
       let connection = this.connection;
       let token = `Bearer ${this.authService.token}`;
       connection.start()

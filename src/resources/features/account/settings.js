@@ -3,7 +3,7 @@ import {Router} from 'aurelia-router';
 
 @inject(Router)
 export class Settings {
-    constructor(router) {
-        this.router = router;
-    }
+  constructor(router) {
+    this.router = router;
+  }
 }

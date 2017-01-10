@@ -24,7 +24,10 @@ export default class OperationService {
 
   _initializeOperations() {
     this.operations = [
-      map('sign_up', 'signed_up')
+      map('sign_up', 'signed_up'),
+      map('set_new_password', 'new_password_set'),
+      map('change_username', 'username_changed'),
+      map('change_password', 'password_changed')
     ];
 
     function map(name, event) {
@@ -53,7 +56,7 @@ export default class OperationService {
     }
 
     let requestId = endpoint.split('/')[1];
-    if (this.authService.isLoggedIn) {
+    if (this.signalR.connected && this.authService.isLoggedIn) {
       //Wait 5 seconds for SignalR to complete - if there's no response then fallback to the API call.
       this.processedOperations.push({
         key: endpoint,
@@ -69,7 +72,7 @@ export default class OperationService {
 
       return;
     }
-    //If user is not authenticated simply fetch operation result from the API.
+    //If user is not authenticated or SignalR is not connected simply fetch the operation result from the API.
     await this.tryFetchOperation(endpoint);
   }
 
@@ -114,13 +117,13 @@ export default class OperationService {
   }
 
   getProcessedOperation(requestId) {
-    let key = `operations/${message.requestId}`;
+    let key = `operations/${requestId}`;
 
     return this.processedOperations.find(x => x.key === key);
   }
 
   isOperationProcessed(requestId) {
-    let processedOperation = getProcessedOperation(message.requestId);
+    let processedOperation = this.getProcessedOperation(requestId);
     if (processedOperation === null || typeof processedOperation === 'undefined') {
       return false;
     }
@@ -129,7 +132,7 @@ export default class OperationService {
   }
 
   handleOperationUpdated(message) {
-    let processedOperation = getProcessedOperation(message.requestId);
+    let processedOperation = this.getProcessedOperation(message.requestId);
     if (processedOperation === null || typeof processedOperation === 'undefined') {
       return;
     }

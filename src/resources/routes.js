@@ -63,6 +63,17 @@ export default [
     }
   },
   {
+    route: 'account/username',
+    moduleId: `${modulePrefix}/account/set-username`,
+    name: 'username',
+    title: 'Set username',
+    nav: false,
+    settings: {
+      reqLogin: true,
+      translationKey: 'route.set_username'
+    }
+  },
+  {
     route: 'account/settings',
     moduleId: `${modulePrefix}/account/settings`,
     name: 'settings',

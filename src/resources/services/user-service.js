@@ -29,12 +29,12 @@ export default class UserService {
   }
 
   async isNameAvailable(name) {
-    return await this.apiBaseService.get(`${name}/available`, {}, false);
+    return await this.apiBaseService.get(`usernames/${name}/available`, {}, false);
   }
 
   async changeUsername(name) {
     return await this.operationService.execute(async ()
-      => await this.apiBaseService.put('account/username', { name }));
+      => await this.apiBaseService.put('account/name', { name }));
   }
 
   async changePassword(currentPassword, newPassword) {

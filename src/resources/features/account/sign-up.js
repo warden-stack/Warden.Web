@@ -62,21 +62,21 @@ export class SignUp {
 
   attached() {
     this.operationService.subscribe('sign_up',
-      operation => this._handleSignedUp(operation),
-      operation => this._handleSignUpRejected(operation));
+      operation => this.handleSignedUp(operation),
+      operation => this.handleSignUpRejected(operation));
   }
 
   detached() {
     this.operationService.unsubscribeAll();
   }
 
-  _handleSignedUp(operation) {
+  handleSignedUp(operation) {
     this.loader.hide();
     this.toast.success(this.translationService.tr('account.account_created'));
     this.router.navigateToRoute('sign-in');
   }
 
-  _handleSignUpRejected(operation) {
+  handleSignUpRejected(operation) {
     this.sending = false;
     this.loader.hide();
     this.toast.error(this.translationService.trCode(operation.code));
