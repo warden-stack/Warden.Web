@@ -27,7 +27,10 @@ export default class OperationService {
       map('sign_up', 'signed_up'),
       map('set_new_password', 'new_password_set'),
       map('change_username', 'username_changed'),
-      map('change_password', 'password_changed')
+      map('change_password', 'password_changed'),
+      map('create_organization', 'organization_created'),
+      map('create_warden', 'warden_created'),
+      map('create_api_key', 'api_key_created')
     ];
 
     function map(name, event) {
