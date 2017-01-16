@@ -5,21 +5,21 @@
   <form submit.delegate="godmode()" class="col s12">
     <div class="row">
       <md-input class="col s12"
-        md-label="${'request.organization' | t}" 
+        md-label="${'organization.name' | t}" 
         md-value.bind="request.organization & validate"
         md-validate="true">
       </md-input>
     </div>
     <div class="row">
       <md-input class="col s12"
-        md-label="${'request.warden' | t}" 
+        md-label="${'warden.name' | t}" 
         md-value.bind="request.warden & validate"
         md-validate="true">
       </md-input>
     </div>
     <div class="row">
       <md-input class="col s12"
-        md-label="${'request.apiKey' | t}" 
+        md-label="${'api_key.name' | t}" 
         md-value.bind="request.apiKey & validate"
         md-validate="true">
       </md-input>
@@ -30,4 +30,19 @@
       </div>
     </div>
   </form>
+    <div class="row" if.bind="activated">
+      <div class="col s12">
+          <div class="card blue-grey darken-1">
+              <div class="card-content white-text">
+                  <p>
+                    <code>
+                    .IntegrateWithHttpApi("${apiUrl}", </br>
+                        &emsp;&emsp;"${apiKey}", </br>
+                        &emsp;&emsp;"${organizationId}", "${wardenId}")
+                    </code>
+                  </p>
+              </div>
+          </div>
+      </div>
+    </div>
 </template>

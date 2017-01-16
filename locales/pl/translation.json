@@ -46,6 +46,10 @@
     "to_sign_in": "aby się zalogować.",
     "to_sign_up": "aby się zarejestrować."
   },
+  "api_key" : {
+    "created": "Klucz API został utworzony.",
+    "name": "Nazwa klucza API"
+  },
   "code": {
     "email_in_use": "Adres email jest już zajęty.",
     "email_not_found": "Adres email nie został znaleziony.",
@@ -91,6 +95,10 @@
     "yes": "Tak"
   },
   "dashboard": {
+    "activate_godmode": "Aktywuj tryb Godmode",
+    "dashboard": "Dashboard",
+    "activating_godmode": "Aktywacja trybu Godmode...",
+    "godmode_activated": "Tryb Godmode został aktywowany."
   },
   "route": {
     "change_password": "Zmiana hasła",
@@ -103,5 +111,15 @@
     "sign_in": "Logowanie",
     "sign_up": "Rejestracja",
     "start": "Start"
+  },
+  "organization" : {
+    "created": "Organizacja została utworzona.",
+    "name": "Nazwa organizacji",
+    "name_is_invalid": "Nazwa organizacji jest nieprawidłowa.",
+    "name_is_required": "Nazwa organizacji jest wymagana."
+  },
+  "warden": {
+    "created": "Warden został utworzony.",
+    "name": "Nazwa Wardena"
   }
 }

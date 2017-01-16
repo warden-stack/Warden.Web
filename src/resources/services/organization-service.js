@@ -9,12 +9,12 @@ export default class OrganizationService {
     this.operationService = operationService;
   }
 
-  async getAll() {
-    return await this.get('organizations');
+  async get(id) {
+    return await this.apiBaseService.get(`organizations/${id}`);
   }
 
-  async getSingle(id) {
-    return await this.get(`organizations/${id}`);
+  async getAll() {
+    return await this.apiBaseService.get('organizations');
   }
 
   async create(name, description) {

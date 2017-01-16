@@ -9,10 +9,13 @@ export default class ApiKeyService {
     this.operationService = operationService;
   }
 
-  async getAll() {
-    return await this.get('api-keys');
+  async get(name) {
+    return await this.apiBaseService.get(`api-keys/${name}`);
   }
 
+  async getAll() {
+    return await this.apiBaseService.get('api-keys');
+  }
 
   async create(name) {
     let request = {

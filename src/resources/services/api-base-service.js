@@ -33,7 +33,9 @@ export default class ApiBaseService {
     }
     cacheKey = cacheKey !== null ? cacheKey : pathWithQuery;
     return await this.cacheFetch(cacheKey, async () => {
-      let httpResponse = await this.http.fetch(pathWithQuery, {headers: this.getHeaders()});
+      let headers = {};
+      this.includeAuthHeader(headers);
+      let httpResponse = await this.http.fetch(pathWithQuery, { headers });
 
       return httpResponse.json();
     });
@@ -52,11 +54,18 @@ export default class ApiBaseService {
   }
 
   async send(method, path, body) {
-    const response = await this.http.fetch(path, {
+    let request = {
       method: method,
-      headers: this.getHeaders(),
+      headers: {},
       body: body ? json(body) : null
-    });
+    };
+
+    this.includeAuthHeader(request.headers);
+    if (this.method === 'post' || this.method === 'put') {
+      request.headers['Content-Type'] = 'application/json';
+    }
+
+    const response = await this.http.fetch(path, request);
 
     return this.handleResponse(response);
   }
@@ -103,7 +112,9 @@ export default class ApiBaseService {
     this.cacheService.invalidate(this.cacheKey(keySuffix));
   }
 
-  getHeaders() {
-    return {'Authorization': `Bearer ${this.authService.token}`};
+  includeAuthHeader(headers) {
+    if (this.authService.isLoggedIn) {
+      headers.Authorization = `Bearer ${this.authService.token}`;
+    }
   }
 }

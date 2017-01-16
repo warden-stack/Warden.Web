@@ -46,6 +46,10 @@
     "to_sign_in": "to sign in.",
     "to_sign_up": "to sign up."
   },
+  "api_key" : {
+    "created": "API key was created.",
+    "name": "API key name"
+  },
   "code": {
     "email_in_use": "Email address is in use.",
     "email_not_found": "Email address has not been found.",
@@ -92,6 +96,16 @@
     "yes": "Yes"
   },
   "dashboard": {
+    "activate_godmode": "Activate Godmode",
+    "dashboard": "Dashboard",
+    "activating_godmode": "Activating Godmode...",
+    "godmode_activated": "Godmode was activated."
+  },
+  "organization" : {
+    "created": "Organization was created.",
+    "name": "Organization name",
+    "name_is_invalid": "Organization name is invalid.",
+    "name_is_required": "Organization name is required"
   },
   "route": {
     "change_password": "Change password",
@@ -104,5 +118,9 @@
     "sign_in": "Sign in",
     "sign_up": "Sign up",
     "start": "Start"
+  },
+  "warden": {
+    "created": "Warden was created.",
+    "name": "Warden name"
   }
 }
