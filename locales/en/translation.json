@@ -51,16 +51,21 @@
     "name": "API key name"
   },
   "code": {
+    "api_key_name_in_use": "API key name is in use.",
+    "api_key_not_found": "API key was not found.",
     "email_in_use": "Email address is in use.",
     "email_not_found": "Email address has not been found.",
     "email_not_sent": "Email message has not been sent.",
     "email_template_not_found": "Email message template has not been found.",
+    "empty_organization_name": "Empty organization name.",
+    "empty_warden_name": "Empty warden name.",
     "error": "There was an error, please try again.",
     "file_too_big": "File is too big.",
     "facebook_no_access": "Please allow Warden application to access your Facebook account.",
     "facebook_not_signed_in": "Please sign in to Facebook.",
     "inactive_user": "User account is inactive.",
     "invalid_account_type": "User account has invalid type.",
+    "invalid_api_key": "API key is invalid.",
     "invalid_credentials": "Invalid credentials.",
     "invalid_current_password": "Current password is invalid.",
     "invalid_email": "Email is invalid.",
@@ -74,10 +79,14 @@
     "name_already_set": "Name is already set.",
     "name_in_use": "Name is in use.",
     "operation_not_found": "Operation has not been found.",
+    "organization_not_found": "Organization was not found.",
+    "organization_name_in_use": "Organization name is in use.",    
     "session_not_found": "Session has not been found.",
     "text_too_long": "Text is too long.",
     "user_id_in_use": "User identifier is in use.",
-    "user_not_found": "User has not been found."
+    "user_not_found": "User has not been found.",
+    "warden_not_found": "Warden was not found.",
+    "warden_name_in_use": "Warden name is in use."
   },
   "common": {
     "all": "All",

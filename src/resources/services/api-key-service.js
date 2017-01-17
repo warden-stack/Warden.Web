@@ -10,7 +10,7 @@ export default class ApiKeyService {
   }
 
   async get(name) {
-    return await this.apiBaseService.get(`api-keys/${name}`);
+    return await this.apiBaseService.get(`api-keys/${name}`, {}, false);
   }
 
   async getAll() {

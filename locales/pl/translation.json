@@ -51,16 +51,21 @@
     "name": "Nazwa klucza API"
   },
   "code": {
+    "api_key_name_in_use": "Nazwa klucza API jest w użyciu.",
+    "api_key_not_found": "Klucz API nie został znaleziony.",
     "email_in_use": "Adres email jest już zajęty.",
     "email_not_found": "Adres email nie został znaleziony.",
     "email_not_sent": "Wiadomość email nie została wysłana.",
     "email_template_not_found": "Szablon dla wiadomości email nie został znaleziony.",
+    "empty_organization_name": "Nazwa organizacji nie została podana.",
+    "empty_warden_name": "Nazwa wardena nie została podana.",
     "error": "Wystąpił błąd, prosimy spróbować ponownie.",
     "facebook_no_access": "Prosimy o zezwolenie dostępu do Twojego konta Facebook przez aplikację Warden.",
     "facebook_not_signed_in": "Prosimy zalogować się do Facebook.",
     "file_too_big": "Plik posiada zbyt duży rozmiar.",
     "inactive_user": "Konto użytkownika nie jest aktywne.",
     "invalid_account_type": "Konto użytkownika jest nieprawidłowe.",
+    "invalid_api_key": "Niepoprawny klucz API.",
     "invalid_credentials": "Niepoprawne dane logowania.",
     "invalid_current_password": "Niepoprawne obecne hasło.",
     "invalid_email": "Niepoprawny adres email.",
@@ -74,10 +79,14 @@
     "name_already_set": "Nazwa została już ustawiona.",
     "name_in_use": "Nazwa jest w użyciu.",
     "operation_not_found": "Operacja nie została znaleziona.",
+    "organization_not_found": "Organizacja nie została znaleziona.",
+    "organization_name_in_use": "Nazwa organizacji jest w użyciu.",
     "session_not_found": "Sesja nie została znaleziona.",
     "text_too_long": "Tekst jest zbyt długi.",
     "user_id_in_use": "Identyfikator użytkownika jest w użyciu.",
-    "user_not_found": "Użytkownik nie został znaleziony."
+    "user_not_found": "Użytkownik nie został znaleziony.",
+    "warden_not_found": "Warden nie został znaleziony.",
+    "warden_name_in_use": "Nazwa wardena jest w użyciu."
   },
   "common": {
     "all": "Wszystkie",

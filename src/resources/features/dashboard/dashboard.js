@@ -14,14 +14,15 @@ import ApiKeyService from 'resources/services/api-key-service';
 import ToastService from 'resources/services/toast-service';
 import LoaderService from 'resources/services/loader-service';
 import OperationService from 'resources/services/operation-service';
+import {EventAggregator} from 'aurelia-event-aggregator';
 
 @inject(Router, TranslationService, ValidationControllerFactory, DashboardService, AuthService,
   SignalRService, OrganizationService, WardenService, ApiKeyService,
-  ToastService, LoaderService, OperationService)
+  ToastService, LoaderService, OperationService, EventAggregator)
 export class Dashboard {
   constructor(router, translationService, controllerFactory, dashboardService, authService,
   signalRService, organizationService, wardenService, apiKeyService,
-  toast, loader, operationService) {
+  toast, loader, operationService, eventAggregator) {
     this.router = router;
     this.translationService = translationService;
     this.dashboardService = dashboardService;
@@ -31,6 +32,7 @@ export class Dashboard {
     this.wardenService = wardenService;
     this.apiKeyService = apiKeyService;
     this.operationService = operationService;
+    this.eventAggregator = eventAggregator;
     this.toast = toast;
     this.loader = loader;
     this.apiKey = '';
@@ -48,6 +50,7 @@ export class Dashboard {
     this.controller = controllerFactory.createForCurrentScope();
     this.controller.validateTrigger = validateTrigger.blur;
     this.controller.addRenderer(new MaterializeFormValidationRenderer());
+    this.terminal = '';
 
     ValidationRules
       .ensure('organization')
@@ -67,6 +70,9 @@ export class Dashboard {
           .withMessage(this.translationService.tr('api_key.name_is_invalid'))
       .on(this.request);
 
+    this.checkResultCreatedSubscription = this.eventAggregator.subscribe('check_result_created', x => {
+      this.terminal += JSON.stringify(x) + '</br></br>';
+    });
     this.signalR.initialize();
   }
 
@@ -100,6 +106,15 @@ export class Dashboard {
     this.sending = true;
     this.loader.display();
     this.toast.info(this.translationService.tr('dashboard.activating_godmode'));
+
+    let apiKey = await this.apiKeyService.get(this.request.apiKey);
+    if (typeof apiKey.key !== 'undefined') {
+      this.toast.error(this.translationService.trCode('api_key_name_in_use'));
+      this.sending = false;
+      this.loader.hide();
+
+      return;
+    }
     await this.organizationService.create(this.request.organization, `${this.request.organization} description.`);
   }
 
