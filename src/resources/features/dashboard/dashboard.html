@@ -1,35 +1,36 @@
 <template>
-  <div class="row">  
-    <h4>${'dashboard.dashboard' | t}</h4>
-  </div>
-  <form submit.delegate="godmode()" class="col s12">
+  <div slot="content">
     <div class="row">
-      <md-input class="col s12"
-        md-label="${'organization.name' | t}" 
-        md-value.bind="request.organization & validate"
-        md-validate="true">
-      </md-input>
+      <h4>${'dashboard.dashboard' | t}</h4>
     </div>
-    <div class="row">
-      <md-input class="col s12"
-        md-label="${'warden.name' | t}" 
-        md-value.bind="request.warden & validate"
-        md-validate="true">
-      </md-input>
-    </div>
-    <div class="row">
-      <md-input class="col s12"
-        md-label="${'api_key.name' | t}" 
-        md-value.bind="request.apiKey & validate"
-        md-validate="true">
-      </md-input>
-    </div>
-    <div class="row">
-      <div class="input-field col s12">
-        <button md-button disabled.bind="sending" class="btn waves-effect waves-light btn-large" type="submit">${'dashboard.activate_godmode' | t}</button>
+    <form submit.delegate="godmode()" class="col s12">
+      <div class="row">
+        <md-input class="col s12"
+          md-label="${'organization.name' | t}"
+          md-value.bind="request.organization & validate"
+          md-validate="true">
+        </md-input>
       </div>
-    </div>
-  </form>
+      <div class="row">
+        <md-input class="col s12"
+          md-label="${'warden.name' | t}"
+          md-value.bind="request.warden & validate"
+          md-validate="true">
+        </md-input>
+      </div>
+      <div class="row">
+        <md-input class="col s12"
+          md-label="${'api_key.name' | t}"
+          md-value.bind="request.apiKey & validate"
+          md-validate="true">
+        </md-input>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <button md-button disabled.bind="sending" class="btn waves-effect waves-light btn-large" type="submit">${'dashboard.activate_godmode' | t}</button>
+        </div>
+      </div>
+    </form>
     <div class="row" if.bind="activated">
       <div class="col s12">
           <div class="card blue-grey darken-1">
@@ -45,4 +46,5 @@
           </div>
       </div>
     </div>
+  </div>
 </template>
