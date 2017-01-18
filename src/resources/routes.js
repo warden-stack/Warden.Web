@@ -1,10 +1,12 @@
 const modulePrefix = 'resources/features';
+const layoutPrefix = 'resources/layouts'
 
 export default [
   {
     route: '',
-    moduleId: `${modulePrefix}/home/start`,
-    name: 'start',
+    moduleId: `${modulePrefix}/home/landing`,
+    layoutView: `${layoutPrefix}/setting-sun-layout.html`,
+    name: 'landing',
     title: 'Start',
     settings: {
       hideNavbar: true,
@@ -25,6 +27,7 @@ export default [
   {
     route: 'sign-in',
     moduleId: `${modulePrefix}/account/sign-in`,
+    layoutView: `${layoutPrefix}/setting-sun-layout.html`,
     name: 'sign-in',
     title: 'Sign in',
     settings: {
@@ -35,6 +38,7 @@ export default [
   {
     route: 'sign-up',
     moduleId: `${modulePrefix}/account/sign-up`,
+    layoutView: `${layoutPrefix}/setting-sun-layout.html`,
     name: 'sign-up',
     title: 'Sign up',
     settings: {
