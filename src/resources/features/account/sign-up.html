@@ -1,40 +1,27 @@
 <template>
-  <div class="row">  
-    <h4>${'account.sign_up_for_app' | t}</h4>
-  </div>
-  <form submit.delegate="submit()" class="col s12">
-    <div class="row">
-      <md-input class="col s12"
-        md-label="${'account.name' | t}" 
+  <div slot="content">
+    <h1>${'account.sign_up_for_app' | t}</h4>
+    <form submit.delegate="submit()" class="col s12">
+      <md-input
+        md-placeholder="${'account.name' | t}"
         md-value.bind="account.name & validate"
         md-validate="true">
       </md-input>
-    </div>
-    <div class="row">
-      <md-input class="col s12"
-        md-label="${'account.email' | t}" 
+      <md-input
+        md-placeholder="${'account.email' | t}"
         md-type="email"
         md-value.bind="account.email & validate"
         md-validate="true">
       </md-input>
-    </div>
-    <div class="row">
-      <md-input class="col s12"
-        md-label="${'account.password' | t}" 
+      <md-input
+        md-placeholder="${'account.password' | t}"
         md-type="password"
         md-value.bind="account.password & validate"
         md-validate="true">
       </md-input>
-    </div>
-    <div class="row">
-      <div class="input-field col s12">
-        <button md-button disabled.bind="sending" class="btn waves-effect waves-light btn-large" type="submit">${'account.sign_up' | t}</button>
+      <div class="w-button-row">
+        <button md-button disabled.bind="sending" class="btn waves-effect waves-light btn-large w-button" type="submit">${'account.sign_up' | t}</button>
+        <a class="w-link" route-href="route: sign-in" >${'account.already_have_account' | t}</a>
       </div>
-    </div>
-  </form>
-  <div class="section">
-    <div class="col s12">
-        ${'account.already_have_account' | t} <a route-href="route: sign-in" >${'common.click_here' | t}</a> ${'account.to_sign_in' | t}
-    </div>
-  </div>
+    </form>
 </template>
