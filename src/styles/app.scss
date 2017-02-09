@@ -109,31 +109,15 @@ nav {
 // ------------------------------------------------------------------------
 // Custom styling starts here.
 
-@mixin border-radius {
-  border-radius: 10px;
-}
-
-@mixin placeholder {
-  ::-webkit-input-placeholder { @content };
-  ::-moz-placeholder          { @content }; /* firefox 19+ */
-  :-ms-input-placeholder      { @content }; /* ie */
-  input:-moz-placeholder      { @content };
-}
-
-@mixin absolute-center-parent-fix {
-  -webkit-transform-style: preserve-3d;
-  -moz-transform-style: preserve-3d;
-  transform-style: preserve-3d;
-}
-
-@mixin absolute-center {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%,-50%);
-}
+@import 'variables';
+@import 'mixins';
 
 html, body {
   height: 100%;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
 }
 
 main {
@@ -142,16 +126,21 @@ main {
 }
 
 .w-button {
+  @mixin w-button-background($color) {
+    background-color: $color;
+
+    &:hover {
+      background-color: darken($color, 5%);
+    }
+  }
+
   @include border-radius;
-  background-color: #ff50b3;
+  @include w-button-background($color-pink);
+  border: 0;
 
-  &:hover {
-    background-color: #ff3093;
-  }
-
-  &.w-button-red {
-    background-color: orangered;
-  }
+  &.w-button-red   { @include w-button-background($color-red);   }
+  &.w-button-green { @include w-button-background($color-green); }
+  &.w-button-blue  { @include w-button-background($color-blue);  }
 }
 
 .w-logo {
@@ -226,6 +215,7 @@ main {
   input[type=search],
   textarea.materialize-textarea {
     @include border-radius;
+    @include overwrite-chrome-autocomplete(black, white);
     background-color: black;
     color: white;
     padding: 5px 12px;
@@ -234,7 +224,7 @@ main {
   }
 }
 
-main.w-setting-sun-layout {
+main.w-sunset-layout {
   @include absolute-center-parent-fix;
   background-image: radial-gradient(
                       ellipse farthest-corner at 45% 90%,
@@ -243,58 +233,24 @@ main.w-setting-sun-layout {
                     ),
                     url(assets/images/backgrounds/wolf.jpg);
 
-  .w-setting-sun {
+  .w-sunset {
     @include absolute-center;
-    background: repeating-linear-gradient(
-      180deg,
-      rgba(55, 32, 63, 0.7),
-      rgba(206, 8, 61, 0.7) 71.88%,
-      transparent 71.88%,
-      transparent 72.5%,
-      rgba(209, 7, 61, 0.7) 72.5%,
-      rgba(214, 7, 61, 0.7) 75%,
-      transparent 75%,
-      transparent 75.94%,
-      rgba(216, 6, 61, 0.7) 75.94%,
-      rgba(221, 6, 60, 0.7) 78.13%,
-      transparent 78.13%,
-      transparent 79.38%,
-      rgba(224, 5, 60, 0.7) 79.38%,
-      rgba(226, 5, 60, 0.7) 81.25%,
-      transparent 81.25%,
-      transparent 82.81%,
-      rgba(230, 4, 60, 0.7) 82.81%,
-      rgba(232, 4, 60, 0.7) 84.38%,
-      transparent 84.38%,
-      transparent 86.25%,
-      rgba(236, 3, 60, 0.7) 86.25%,
-      rgba(238, 3, 60, 0.7) 87.5%,
-      transparent 87.5%,
-      transparent 89.69%,
-      rgba(242, 2, 60, 0.7) 89.69%,
-      rgba(243, 1, 60, 0.7) 90.63%,
-      transparent 90.63%,
-      transparent 93.13%,
-      rgba(247, 1, 61, 0.7) 93.13%,
-      rgba(248, 1, 60, 0.7) 93.75%,
-      transparent 93.75%,
-      transparent 96.56%,
-      rgba(252, 1, 60, 0.7) 96.56%,
-      rgba(252, 1, 60, 0.7) 97%,
-      transparent 97%,
-      transparent 100%
+    @include sunset-background(
+      180deg, 72%, 96.5%,
+      8, 5, 2.5,
+      rgba(55, 32, 63, 0.7), rgba(206, 8, 61, 0.7), 0.7%, 0.1%
     );
     width: 640px;
     height: 640px;
     border-radius: 320px;
 
-    .w-setting-sun-content-wrapper {
+    .w-sunset-content-wrapper {
       @include absolute-center-parent-fix;
       margin-top: 20px;
       height: 480px;
       position: relative;
 
-      .w-setting-sun-content {
+      .w-sunset-content {
         @include absolute-center;
       }
     }

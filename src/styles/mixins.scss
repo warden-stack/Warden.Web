@@ -1,0 +1,75 @@
+@mixin border-radius {
+  border-radius: 10px;
+}
+
+@mixin placeholder {
+  ::-webkit-input-placeholder { @content };
+  ::-moz-placeholder          { @content }; /* firefox 19+ */
+  :-ms-input-placeholder      { @content }; /* ie */
+  input:-moz-placeholder      { @content };
+}
+
+@mixin absolute-center-parent-fix {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+@mixin absolute-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+@mixin overwrite-chrome-autocomplete($background-color, $text-color) {
+  &:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px $background-color inset !important;
+    -webkit-text-fill-color: $text-color !important;
+  }
+}
+
+@mixin sunset-background(
+  $angle,
+  $cut-point,
+  $end-point,
+  $lines-count,
+  $stripe-height-to-distance-ratio,
+  $thickness-delta-factor,
+  $start-color,
+  $cut-color,
+  $hue-delta,
+  $brightness-delta
+) {
+  $cycle-height:        ($end-point - $cut-point) / $lines-count;
+  $start-distance:      $cycle-height/$stripe-height-to-distance-ratio;
+  $stripe-start-height: $start-distance*($stripe-height-to-distance-ratio - 1);
+  $distance-delta:      $start-distance/$thickness-delta-factor;
+  $color:               $cut-color;
+  $point:               $cut-point;
+  $last-index:          $lines-count - 1;
+  $gradient-arglist:    ($angle, $start-color, $color $point);
+
+  @for $i from 0 through $last-index {
+    $reverseI:         $last-index - $i;
+    $distance:         $i * $distance-delta;
+
+    $gradient-arglist: append($gradient-arglist, transparent $point);
+
+    $point:            $point + $start-distance + $distance;
+    $gradient-arglist: append($gradient-arglist, transparent $point);
+
+    $color:            adjust-hue($color, $i * $hue-delta);
+    $color:            darken($color, $i * $brightness-delta);
+    $gradient-arglist: append($gradient-arglist, $color $point);
+
+    $point:            $point + $stripe-start-height - $distance;
+    $color:            adjust-hue($color, $reverseI * $hue-delta);
+    $color:            darken($color, $reverseI * $brightness-delta);
+    $gradient-arglist: append($gradient-arglist, $color $point);
+  }
+
+  $gradient-arglist: append($gradient-arglist, transparent $point);
+  $gradient-arglist: append($gradient-arglist, transparent 100%);
+
+  background: call(repeating-linear-gradient, $gradient-arglist);
+}

@@ -5,7 +5,7 @@ export default [
   {
     route: '',
     moduleId: `${modulePrefix}/home/landing`,
-    layoutView: `${layoutPrefix}/setting-sun-layout.html`,
+    layoutView: `${layoutPrefix}/sunset-layout.html`,
     name: 'landing',
     title: 'Start',
     settings: {
@@ -27,7 +27,7 @@ export default [
   {
     route: 'sign-in',
     moduleId: `${modulePrefix}/account/sign-in`,
-    layoutView: `${layoutPrefix}/setting-sun-layout.html`,
+    layoutView: `${layoutPrefix}/sunset-layout.html`,
     name: 'sign-in',
     title: 'Sign in',
     settings: {
@@ -38,7 +38,7 @@ export default [
   {
     route: 'sign-up',
     moduleId: `${modulePrefix}/account/sign-up`,
-    layoutView: `${layoutPrefix}/setting-sun-layout.html`,
+    layoutView: `${layoutPrefix}/sunset-layout.html`,
     name: 'sign-up',
     title: 'Sign up',
     settings: {
