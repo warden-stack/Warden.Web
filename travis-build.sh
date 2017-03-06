@@ -1,10 +1,15 @@
 #!/bin/bash
-MYGET_ENV=""
+APP_ENV=""
 case "$TRAVIS_BRANCH" in
   "develop")
-    MYGET_ENV="-dev"
+    APP_ENV="dev"
     ;;
+  "master")
+    APP_ENV="prod"
+    ;;    
 esac
 
-dotnet restore --source "https://api.nuget.org/v3/index.json" --source "https://www.myget.org/F/warden$MYGET_ENV/api/v3/index.json" --no-cache
-dotnet build **/project.json
+npm install
+npm rebuild node-sass
+node node_modules/.bin/r.js -o rbuild.js
+node node_modules/aurelia-cli/bin/aurelia-cli.js build --env $APP_ENV
