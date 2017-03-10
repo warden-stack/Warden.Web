@@ -38,7 +38,7 @@ export default [
   {
     route: 'sign-up',
     moduleId: `${modulePrefix}/account/sign-up`,
-    layoutView: `${layoutPrefix}/sunset-layout.html`,
+    layoutView: `${layoutPrefix}/particles-layout.html`,
     name: 'sign-up',
     title: 'Sign up',
     settings: {

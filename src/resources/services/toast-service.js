@@ -25,7 +25,7 @@ export default class ToastService {
   }
 
   async success(message, time = 4000) {
-    await this._display(message, 'green', time);
+    await this._display(message, 'pink', time);
   }
 
   async _display(message, color, time) {
