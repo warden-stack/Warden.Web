@@ -2,7 +2,7 @@ export default {
   debug: false,
   testing: false,
   title: 'Warden',
-  apiUrl: 'http://localhost:5000/',
+  apiUrl: 'https://api.getwarden.net/',
   sessionStorageKey: 'session',
   apiKeysStorageKey: 'apiKeys',
   profileStorageKey: 'profile',
