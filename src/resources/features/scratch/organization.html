@@ -1,0 +1,119 @@
+<template>
+  <require from="resources/components/left-pane"></require>
+  <require from="resources/components/status.html"></require>
+  <require from="resources/components/button-details.html"></require>
+  <require from="resources/components/button-edit.html"></require>
+
+  <main class="w-blue-layout w-background-cables">
+    <div class="row">
+      <div class="col s12 l2">
+        <left-pane></left-pane>
+      </div>
+      <div class="col s12 l9">
+
+        <div class="w-table-view w-content w-lowered-content">
+          <div class="row">
+            <div class="col s12">
+              <div class="w-breadcrumbs">
+                <a href="#">...</a><span class="text-blue">/</span>Organizations
+              </div>
+            </div>
+          </div>
+
+          <div class="row w-header">
+            <div class="col s12 m9 l10">
+              <h1>${org.name}</h1>
+              <p>${org.description}</p>
+            </div>
+            <div class="col s12 m3 l2 w-header-status">
+              <status color.bind="org.status"></status>
+              <hr>
+            </div>
+          </div>
+
+          <section>
+            <div class="row">
+              <div class="col s12">
+                <table class="table w-table w-table-wardens">
+                  <thead>
+                    <th>
+                      <h2>
+                        Wardens
+                        ( <b><span class="text-green">${org.wardens.length}</span></b> )
+                      </h2>
+                    </th>
+                    <th></th>
+                    <th class="right-align">
+                      <a href="#" class="w-button w-button-blue w-button-mini">
+                        ADD WARDEN
+                        <span class="w-icon-plus"></span>
+                      </a>
+                    </th>
+                  </thead>
+                  <tbody>
+                    <tr repeat.for="warden of org.wardens">
+                      <td>${warden.name}</td>
+                      <td>${warden.watchers} watchers</td>
+                      <td class="right-align"><button-details></button-details></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <div class="row">
+            <div class="col s12 l8">
+              <section>
+                <table class="table w-table w-table-users">
+                  <thead>
+                    <th>
+                      <h3>
+                        Users
+                        ( <b><span class="text-green">${org.users.length}</span></b> )
+                      </h3>
+                    </th>
+                    <th></th>
+                    <th class="right-align w-narrow">
+                      <a href="#" class="w-button w-button-blue w-button-mini">
+                        EDIT
+                        <i class="material-icons">mode_edit</i>
+                      </a>
+                    </th>
+                  </thead>
+                  <tbody>
+                    <tr repeat.for="user of org.users">
+                      <td>${user.name}</td>
+                      <td>
+                        <span if.bind="user.status == 0">Admin</span>
+                        <span if.bind="user.status == 1">User</span>
+                      </td>
+                      <td class="right-align w-narrow">
+                        <a href="#" class="w-button w-button-mini">
+                          EDIT
+                          <i class="material-icons">mode_edit</i>
+                        </a>
+                        <a href="#" class="w-button w-button-mini">
+                          DELETE USER
+                          <span class="w-icon-delete"></span>
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+            </div>
+            <div class="col s12 l3 offset-l1 w-other-organizations">
+              <h3>Other organizations</h3>
+              <ul>
+                <li><a href="#">42.do</a><hr></li>
+                <li><a href="#">loved.it</a><hr></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</template>

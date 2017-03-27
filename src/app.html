@@ -4,8 +4,8 @@
     <require from="resources/features/nav/nav-bar"></require>
 
     <md-progress id="loader" md-value.bind="null" if.bind="loaderActive"></md-progress>
-    <nav-bar router.bind="router" if.bind="!router.currentInstruction.config.settings.hideNavbar"></nav-bar>
-    <router-view layout-view="resources/layouts/default-layout.html"></router-view>
+    <!-- <nav-bar router.bind="router" if.bind="!router.currentInstruction.config.settings.hideNavbar"></nav-bar> -->
+    <router-view></router-view>
 
     <footer>
     </footer>

@@ -1,0 +1,61 @@
+<template>
+  <require from="resources/components/left-pane"></require>
+  <require from="resources/components/status.html"></require>
+  <require from="resources/components/button-details.html"></require>
+  <require from="resources/components/button-edit.html"></require>
+  <require from="resources/converters/number-uptime-value-converter"></require>
+
+  <main class="w-blue-layout w-background-wolf">
+    <div class="row">
+      <div class="col s12 l2">
+        <left-pane></left-pane>
+      </div>
+      <div class="col s12 l9">
+        <div class="w-table-view w-content w-lowered-content">
+          <div class="row">
+            <div class="col s12">
+              <div class="w-breadcrumbs">
+                <a href="#">...</a><span class="text-blue">/</span><a href="#">Organizations</a><span class="text-blue">/</span>Warden.io<span class="text-blue">/</span>Watchers
+              </div>
+            </div>
+          </div>
+
+          <div class="row w-header">
+            <div class="col s12 m9 l10">
+              <h1>SpetzPC-001</h1>
+            </div>
+            <div class="col s12 m3 l2 w-header-status">
+              <status color="green"></status>
+              <hr>
+            </div>
+          </div>
+
+          <section>
+            <table class="table w-table w-table-watchers">
+              <thead>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th class="right-align">
+                  <a href="#" class="w-button w-button-blue w-button-mini">
+                    ADD WATCHER
+                    <span class="w-icon-plus"></span>
+                  </a>
+                </th>
+              </thead>
+              <tbody>
+                <tr repeat.for="i of [1,2,3,4]">
+                  <td>Watcher name</td>
+                  <td><status color="green"></status></td>
+                  <td>uptime <span class="text-green">${4274220 | numberUptime}</span></td>
+                  <td class="right-align"><button-details></button-details></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</template>

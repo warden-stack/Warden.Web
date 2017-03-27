@@ -14,6 +14,35 @@ export default [
     }
   },
   {
+    route: 'scratch/watchers',
+    moduleId: `${modulePrefix}/scratch/watchers`,
+    name: 'scratch-watchers',
+    title: 'scratch-watchers',
+    nav: true,
+    settings: {
+      reqLogin: true
+    }
+  },
+  {
+    route: 'scratch/organizations',
+    moduleId: `${modulePrefix}/scratch/organizations`,
+    name: 'scratch-organizations',
+    title: 'scratch-organizations',
+    nav: true,
+    settings: {
+      reqLogin: true
+    }
+  },
+  {
+    route: 'scratch/organization',
+    moduleId: `${modulePrefix}/scratch/organization`,
+    name: 'scratch-organization',
+    title: 'scratch-organization',
+    settings: {
+      reqLogin: true
+    }
+  },
+  {
     route: 'dashboard',
     moduleId: `${modulePrefix}/dashboard/dashboard`,
     name: 'dashboard',

@@ -1,156 +1,422 @@
-﻿$primary-color: #7272D8;
-$medium-color: #9999E9;
-$light-color: #C8C8F7;
-$background-color: #FAFAFF;
-$error-color: #BF3131;
-$mobile-width: 992px;
+// ﻿$primary-color: #7272D8;
+// $medium-color: #9999E9;
+// $light-color: #C8C8F7;
+// $background-color: #FAFAFF;
+// $error-color: #BF3131;
+// $mobile-width: 992px;
+//
+// body {
+//     background-color: $background-color;
+// }
+//
+// nav {
+//     color: $primary-color;
+//     background-color: $primary-color;
+// }
+//
+// .nav-wrapper > ul > li {
+//     color: $primary-color;
+//     background-color: $primary-color;
+// }
+//
+// .custom {
+//     background-color: $primary-color;
+// }
+//
+// .custom-text {
+//     color: $primary-color;
+// }
+//
+// .collection .collection-item.active {
+//     background-color: #ffffff;
+//     color: #000000;
+// }
+//
+// .field-validation-error{
+//     color: $error-color;
+// }
+//
+// .progress {
+//   background-color: $light-color;
+// }
+//
+// .progress .determinate {
+//   background-color: $primary-color;
+// }
+//
+// .progress .indeterminate {
+//   background-color: $primary-color;
+// }
+//
+// .btn {
+//   &:hover {
+//     background-color: $medium-color;
+//   }
+// }
+//
+// .btn-floating {
+//   &:hover {
+//     background-color: $medium-color;
+//   }
+// }
+//
+// .static {
+//     position: static !important;
+// }
+//
+// .spinner-layer {
+//    border-color: $primary-color;
+// }
+//
+// .progress {
+//    background-color: $medium-color;
+//    .indeterminate {
+//      background-color: $light-color;
+//    }
+// }
+//
+// .md-input-validation {
+//     left: 0;
+//     color: #f44336;
+//     font-size: 0.8rem;
+//     transition: opacity .2s ease-out;
+//     margin-top: -4px;
+//     margin-bottom: 0;
+// }
+//
+// .back-btn {
+//     width: 40px;
+// }
+//
+// #loader {
+//     position: absolute;
+//     top: -6px;
+//     width: 100%;
+// }
+//
+// @media screen and (max-width: $mobile-width) {
+//     .btn:not(.btn-floating) {
+//         width: 100%;
+//     }
+// }
+//
+// @media screen and (max-height: 700px) {
+//     #map {
+//         height: 300px;
+//     }
+// }
+//
+// // ------------------------------------------------------------------------
+// // Custom styling starts here.
+//
+// @import 'variables';
+// @import 'mixins';
+//
+// html, body {
+//   height: 100%;
+// }
+//
+// body {
+//   -webkit-font-smoothing: antialiased;
+// }
+//
+// main {
+//   min-height: 100%;
+//   background-size: cover;
+// }
+//
+// .w-button {
+//   @mixin w-button-background($color) {
+//     background-color: $color;
+//
+//     &:hover {
+//       background-color: darken($color, 5%);
+//     }
+//   }
+//
+//   @include border-radius;
+//   @include w-button-background($color-pink);
+//   border: 0;
+//
+//   &.w-button-red   { @include w-button-background($color-red);   }
+//   &.w-button-green { @include w-button-background($color-green); }
+//   &.w-button-blue  { @include w-button-background($color-blue);  }
+// }
+//
+// .w-logo {
+//   position: absolute;
+//   top: 0;
+//   left: 20px;
+//   width: 200px;
+//   height: 150px;
+//   text-align: center;
+//   background-image: radial-gradient(ellipse farthest-corner at 50% 50%, rgba(220,220,220,0.6) 0%, rgba(220,220,220,0.4) 10%, rgba(220,220,220,0.2) 25%, transparent 50%);
+// }
+// .w-logo img {
+//   width: 75px;
+//   position: relative;
+//   top: 50%;
+//   transform: translateY(-50%);
+// }
+// .w-action-pane {
+//   width: 480px;
+//   text-align: center;
+//   color: white;
+//
+//   h1 {
+//     font-size: 36px;
+//     margin-top: 0;
+//     margin-bottom: 30px;
+//   }
+//
+//   .w-button {
+//     width: 300px;
+//     box-shadow: inset 0 1px 1px 0 rgba(255,255,255,0.5), 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+//
+//     &:hover {
+//       box-shadow: none;
+//     }
+//   }
+//
+//   .w-button-row {
+//     margin-top: 20px;
+//
+//     .w-button {
+//       min-width: auto;
+//       width: auto;
+//
+//       & + .w-button {
+//         margin-left: 10px;
+//       }
+//
+//       & + .w-link {
+//         margin-left: 20px;
+//         font-size: 15px;
+//         display: inline-block;
+//         font-weight: bold;
+//         color: white;
+//         text-decoration: underline;
+//       }
+//     }
+//   }
+//
+//   @include placeholder {
+//     color: gray;
+//   }
+//
+//   input:not([type]),
+//   input[type=text],
+//   input[type=password],
+//   input[type=email],
+//   input[type=url],
+//   input[type=time],
+//   input[type=date],
+//   input[type=datetime],
+//   input[type=datetime-local],
+//   input[type=tel],
+//   input[type=number],
+//   input[type=search],
+//   textarea.materialize-textarea {
+//     $background-color: black;
+//     $text-color:       white;
+//
+//     @include border-radius;
+//     background-color: $background-color;
+//     color: $text-color;
+//     padding: 5px 12px;
+//     margin-bottom: 5px;
+//     width: 400px;
+//
+//     &:-webkit-autofill {
+//       -webkit-box-shadow: 0 0 0px 1000px $background-color inset !important;
+//       -webkit-text-fill-color: $text-color !important;
+//     }
+//
+//     @mixin border-bottom($color) {
+//       border-bottom: 1px solid $color;
+//       box-shadow: 0 1px 0 0 $color;
+//
+//       &:-webkit-autofill {
+//         // Compensate the ovewritten 0px box-shadow from the hack above.
+//         border-bottom: 2px solid $color;
+//       }
+//     }
+//
+//     &.valid                 { @include border-bottom($color-green); }
+//     &.invalid               { @include border-bottom($color-red);   }
+//     &:focus:not([readonly]) { @include border-bottom($color-pink);  }
+//   }
+//
+//   .md-input-validation {
+//     color: $color-red;
+//   }
+// }
+//
+// .toast.blue { background-color: $color-blue !important; }
+// .toast.red  { background-color: $color-red !important;  }
+// .toast.pink { background-color: $color-pink !important; }
+//
+// main.w-sunset-layout {
+//   @include absolute-center-parent-fix;
+//   background-image: radial-gradient(
+//                       ellipse farthest-corner at 45% 90%,
+//                       rgba(71, 15, 93, 0.33) 0%,
+//                       rgba(40, 31, 44, 0.33) 100%
+//                     ),
+//                     url(assets/images/backgrounds/wolf.jpg);
+//
+//   .w-sunset {
+//     @include absolute-center;
+//     @include sunset-background(
+//       180deg, 69%, 96.5%,
+//       10, 5, 2.5,
+//       rgba(55, 32, 63, 0.7), rgba(206, 8, 61, 0.7), 0.7%, 0.1%
+//     );
+//     width: 640px;
+//     height: 640px;
+//     border-radius: 320px;
+//
+//     .w-sunset-content-wrapper {
+//       @include absolute-center-parent-fix;
+//       margin-top: 20px;
+//       height: 480px;
+//       position: relative;
+//
+//       .w-sunset-content {
+//         @include absolute-center;
+//       }
+//     }
+//
+//   }
+// }
+//
+// main.w-particles-layout {
+//   @include absolute-center-parent-fix;
+//   background-image: url(assets/images/backgrounds/particles.jpg);
+//
+//   .w-action-pane {
+//     @include absolute-center;
+//   }
+// }
 
-body {
-    background-color: $background-color;
-}
+// --------------------------------------------------------------------------
+// New layout as of March 2017
 
-nav {
-    color: $primary-color;
-    background-color: $primary-color;
-}
+$color-violet-very-dark: #281f2c;
+$color-violet-dark:      #36203f;
+$color-violet-medium:    #480e5e;
+$color-green:            #38fdaa;
+$color-blue:             #313ffa;
+$color-blue-light:       #38e3fc;
+$color-red:              #ff003c;
+$color-pink-red:         #fc3878;
+$color-pink:             #ff50b3;
 
-.nav-wrapper > ul > li {
-    color: $primary-color;
-    background-color: $primary-color;
-}
+/* These come from Materialize */
+$small-screen-up:  601px;
+$medium-screen-up: 993px;
+$large-screen-up: 1201px;
+$small-screen:     600px;
+$medium-screen:    992px;
+$large-screen:    1200px;
 
-.custom {
-    background-color: $primary-color;
-}
 
-.custom-text {
-    color: $primary-color;
-}
-
-.collection .collection-item.active {
-    background-color: #ffffff;
-    color: #000000;
-}
-
-.field-validation-error{
-    color: $error-color;
-}
-
-.progress {
-  background-color: $light-color;
-}
-
-.progress .determinate {
-  background-color: $primary-color;
-}
-
-.progress .indeterminate {
-  background-color: $primary-color;
-}
-
-.btn {
-  &:hover {
-    background-color: $medium-color;
-  }
-}
-
-.btn-floating {
-  &:hover {
-    background-color: $medium-color;
-  }
-}
-
-.static {
-    position: static !important;
-}
-
-.spinner-layer {
-   border-color: $primary-color;
-}
-
-.progress {
-   background-color: $medium-color;
-   .indeterminate {
-     background-color: $light-color;
-   }
-}
-
-.md-input-validation {
-    left: 0;
-    color: #f44336;
-    font-size: 0.8rem;
-    transition: opacity .2s ease-out;
-    margin-top: -4px;
-    margin-bottom: 0;
-}
-
-.back-btn {
-    width: 40px;
-}
-
-#loader {
-    position: absolute;
-    top: -6px;
-    width: 100%;
-}
-
-@media screen and (max-width: $mobile-width) {
-    .btn:not(.btn-floating) {
-        width: 100%;
-    }
-}
-
-@media screen and (max-height: 700px) {
-    #map {
-        height: 300px;
-    }
+@mixin valign-wrapper {
+  display:             -webkit-flex;
+  display:             -ms-flexbox;
+  display:             flex;
+  -webkit-align-items: center;
+       -ms-flex-align: center;
+          align-items: center;
 }
 
 // ------------------------------------------------------------------------
-// Custom styling starts here.
+// Scaling-related ("apply only to <X> screen size")
 
-@import 'variables';
-@import 'mixins';
-
-html, body {
-  height: 100%;
+@mixin large {
+  @media only screen and (min-width: $medium-screen-up) { @content };
 }
 
-body {
-  -webkit-font-smoothing: antialiased;
+// @mixin large-or-retina {
+//   @include l {
+//     @content;
+//   }
+//   @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+//     @content;
+//   }
+// }
+
+@mixin med {
+  @media only screen and (min-width: $small-screen-up) { @content };
 }
 
-main {
-  min-height: 100%;
-  background-size: cover;
+@mixin med-and-down {
+  @media only screen and (max-width: $medium-screen) { @content };
 }
 
-.w-button {
-  @mixin w-button-background($color) {
-    background-color: $color;
-
-    &:hover {
-      background-color: darken($color, 5%);
-    }
+.w-med-and-down-valign-wrapper {
+  // .valign-wrapper that works on large screens only
+  @include med-and-down {
+    @include valign-wrapper;
   }
+}
 
-  @include border-radius;
-  @include w-button-background($color-pink);
-  border: 0;
+@mixin font-raleway($weight, $url) {
+  @font-face {
+  	font-family: 'Raleway';
+  	src:         url($url) format('truetype');
+  	font-weight: $weight;
+  	font-style:  normal;
+  }
+}
 
-  &.w-button-red   { @include w-button-background($color-red);   }
-  &.w-button-green { @include w-button-background($color-green); }
-  &.w-button-blue  { @include w-button-background($color-blue);  }
+@include font-raleway(normal , 'assets/fonts/raleway/Raleway-Regular.ttf');
+@include font-raleway(600    , 'assets/fonts/raleway/Raleway-Medium.ttf');
+@include font-raleway(bold   , 'assets/fonts/raleway/Raleway-Bold.ttf');
+@include font-raleway(900    , 'assets/fonts/raleway/Raleway-ExtraBold.ttf');
+
+@mixin horizontal-ul {
+  li { display: inline-block; }
+}
+@function tint($color, $percent){
+  @return mix(white, $color, $percent);
+}
+
+$color-icon: $color-pink-red;
+@mixin icon-arrow($dimension) {
+  display:        inline-block;
+  width:          0;
+  height:         0;
+  border-top:     $dimension solid transparent;
+  border-bottom:  $dimension solid transparent;
+  vertical-align: middle;
+}
+@mixin icon-arrow-right($dimension) {
+  @include icon-arrow($dimension);
+  margin-left: $dimension * 0.7;
+  border-left: $dimension*1.5 solid $color-icon;
+}
+@mixin icon-arrow-left($dimension) {
+  @include icon-arrow($dimension);
+  margin-right: $dimension * 0.7;
+  border-right: $dimension*1.5 solid $color-icon;
+}
+
+
+
+html,body {
+  width: 100%;
+  height: 100%;
+  font-family: 'Raleway';
 }
 
 .w-logo {
-  position: absolute;
-  top: 0;
-  left: 20px;
-  width: 200px;
   height: 150px;
-  text-align: center;
-  background-image: radial-gradient(ellipse farthest-corner at 50% 50%, rgba(220,220,220,0.6) 0%, rgba(220,220,220,0.4) 10%, rgba(220,220,220,0.2) 25%, transparent 50%);
+  background-image: radial-gradient(ellipse farthest-corner at 50% 50%, rgba($color-blue-light,0.6) 0%, rgba($color-blue-light,0.4) 10%, rgba($color-blue-light,0.2) 25%, transparent 50%);
+  @include large {
+    margin-bottom: -15px;
+    text-align: center;
+  }
 }
 .w-logo img {
   width: 75px;
@@ -158,143 +424,386 @@ main {
   top: 50%;
   transform: translateY(-50%);
 }
-.w-action-pane {
-  width: 480px;
-  text-align: center;
+
+.w-image-menu {
+  width: 25px;
+  @include large {
+    margin-bottom: 50px;
+  }
+}
+
+@mixin background-blue($url) {
+  background-image: linear-gradient(
+                      rgba($color-blue, 0.5),
+                      rgba($color-violet-dark, 0.8) 60%
+                    ),
+                    radial-gradient(
+                      ellipse farthest-corner at 100% 30%,
+                      rgba($color-blue, 0.4),
+                      rgba($color-violet-dark, 0.7) 50%
+                    ),
+                    url($url);
+}
+
+main.w-background-dude {
+  @include background-blue('assets/images/backgrounds/dude.jpg');
+}
+main.w-background-cables {
+  @include background-blue('assets/images/backgrounds/cables.jpg');
+}
+main.w-background-wolf {
+  @include background-blue('assets/images/backgrounds/wolf.jpg');
+}
+
+main.w-blue-layout {
+  width: 100%;
+  min-height: 100%;
+  padding: 0 20px 20px;
+  background-position: top;
+  background-size: 100% auto;
   color: white;
 
-  h1 {
-    font-size: 36px;
+  a {
+    color: white;
+  }
+
+  h1,h2,h3,h4,h5,h6,p {
     margin-top: 0;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
+  }
+
+  h1,h2 {
+    font-weight: 900;
+  }
+
+  h3 {
+    font-size: 21px;
+    font-weight: 600;
+  }
+
+  ul.w-nav {
+    @include horizontal-ul;
+    font-weight: bold;
+
+    li {
+      font-size: 18px;
+      padding: 0 10px;
+
+      a {
+        display: inline-block;
+        line-height: 1.5;
+      }
+
+      &.w-active a {
+        border-bottom: 2px solid $color-pink;
+      }
+    }
+  }
+
+  .w-collection-view {
+    text-align: center;
+
+    h1 {
+      font-weight: normal;
+      margin-top: 40px;
+      font-size: 30px;
+    }
+  }
+
+  .w-collection-view-content {
+    margin-top: 80px;
+    text-align: left;
+
+    .w-organization {
+      margin-bottom: 40px;
+
+      h2.w-organization-name {
+        font-size: 72px;
+      }
+      ul.w-organization-properties {
+        @include horizontal-ul;
+        margin-top: 0;
+        font-weight: 600;
+
+        li {
+          padding: 0 10px;
+          font-size: 16px;
+
+          &:first-child {
+            padding-left: 0;
+          }
+
+          &:last-child {
+            padding-right: 0;
+          }
+        }
+      }
+
+      .w-organization-details {
+        @include large {
+          padding-top: 30px;
+        }
+        hr {
+          width: 110px;
+          margin-left: 20px;
+          margin-bottom: 24px;
+        }
+      }
+    }
+  }
+
+  .w-status {
+    display: inline-block;
+
+    div {
+      $dimension: 10px;
+
+      display:       inline-block;
+      width:         $dimension;
+      height:        $dimension;
+      border-radius: 50%;
+      margin-right:  2px;
+    }
+
+    &.w-green div {
+      &:nth-child(1) { background-color: tint(lighten($color-green, 0.66), 66%); }
+      &:nth-child(2) { background-color: tint(lighten($color-green, 0.33), 33%); }
+      &:nth-child(3) { background-color: $color-green; }
+    }
+
+    &.w-red div {
+      &:nth-child(1) { background-color: tint(lighten($color-red, 0.66), 66%); }
+      &:nth-child(2) { background-color: tint(lighten($color-red, 0.33), 33%); }
+      &:nth-child(3) { background-color: $color-red; }
+    }
   }
 
   .w-button {
-    width: 300px;
-    box-shadow: inset 0 1px 1px 0 rgba(255,255,255,0.5), 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    text-transform: capitalize;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 6px 20px;
+    border: 3px solid gray;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: border-color .35s ease;
 
     &:hover {
-      box-shadow: none;
+      border-color: $color-blue-light;
     }
   }
 
-  .w-button-row {
-    margin-top: 20px;
-
-    .w-button {
-      min-width: auto;
-      width: auto;
-
-      & + .w-button {
-        margin-left: 10px;
-      }
-
-      & + .w-link {
-        margin-left: 20px;
-        font-size: 15px;
-        display: inline-block;
-        font-weight: bold;
-        color: white;
-        text-decoration: underline;
-      }
-    }
-  }
-
-  @include placeholder {
-    color: gray;
-  }
-
-  input:not([type]),
-  input[type=text],
-  input[type=password],
-  input[type=email],
-  input[type=url],
-  input[type=time],
-  input[type=date],
-  input[type=datetime],
-  input[type=datetime-local],
-  input[type=tel],
-  input[type=number],
-  input[type=search],
-  textarea.materialize-textarea {
-    $background-color: black;
-    $text-color:       white;
-
-    @include border-radius;
-    background-color: $background-color;
-    color: $text-color;
-    padding: 5px 12px;
-    margin-bottom: 5px;
-    width: 400px;
-
-    &:-webkit-autofill {
-      -webkit-box-shadow: 0 0 0px 1000px $background-color inset !important;
-      -webkit-text-fill-color: $text-color !important;
-    }
-
-    @mixin border-bottom($color) {
-      border-bottom: 1px solid $color;
-      box-shadow: 0 1px 0 0 $color;
-
-      &:-webkit-autofill {
-        // Compensate the ovewritten 0px box-shadow from the hack above.
-        border-bottom: 2px solid $color;
-      }
-    }
-
-    &.valid                 { @include border-bottom($color-green); }
-    &.invalid               { @include border-bottom($color-red);   }
-    &:focus:not([readonly]) { @include border-bottom($color-pink);  }
-  }
-
-  .md-input-validation {
-    color: $color-red;
+  .w-button-blue {
+    border: 3px solid $color-blue-light;
+    transition: none;
+    background-color: $color-blue-light;
   }
 }
 
-.toast.blue { background-color: $color-blue !important; }
-.toast.red  { background-color: $color-red !important;  }
-.toast.pink { background-color: $color-pink !important; }
+.w-table-view {
+  section {
+    margin-bottom: 50px;
+  }
 
-main.w-sunset-layout {
-  @include absolute-center-parent-fix;
-  background-image: radial-gradient(
-                      ellipse farthest-corner at 45% 90%,
-                      rgba(71, 15, 93, 0.33) 0%,
-                      rgba(40, 31, 44, 0.33) 100%
-                    ),
-                    url(assets/images/backgrounds/wolf.jpg);
+  .w-header {
+    margin-bottom: 30px;
+    h1 {
+      font-size: 64px;
+    }
+    .w-header-status {
+      @include med {
+        text-align: right;
+      }
+      .w-status {
+        margin-top: 20px;
+        font-size: 18px;
+        div { height: 10px; width: 10px; }
+      }
+      hr {
+        width: 60px;
+        margin-left: 0;
+        @include med {
+          margin-left: auto;
+          margin-right: 0;
+        }
+      }
+    }
+  }
 
-  .w-sunset {
-    @include absolute-center;
-    @include sunset-background(
-      180deg, 69%, 96.5%,
-      10, 5, 2.5,
-      rgba(55, 32, 63, 0.7), rgba(206, 8, 61, 0.7), 0.7%, 0.1%
-    );
-    width: 640px;
-    height: 640px;
-    border-radius: 320px;
+  h2 {
+    font-size: 30px;
+  }
 
-    .w-sunset-content-wrapper {
-      @include absolute-center-parent-fix;
-      margin-top: 20px;
-      height: 480px;
+  .w-table {
+    h2,h3 {
+      margin-bottom: 0;
+    }
+    thead { border: none; }
+    td {
+      border-bottom: 1px solid rgba(gray, 0.2);
+      .w-button {
+        @extend .w-button-mini;
+
+        & + .w-button {
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+}
+
+.w-table-wardens, .w-table-users, .w-table-watchers {
+  table-layout: fixed;
+}
+.w-table-wardens, .w-table-watchers {
+  td, th {
+    &:last-child {
+      width: 150px;
+    }
+  }
+}
+.w-table-users {
+  td,th {
+    &:nth-child(1) {
+      width: 60%;
+    }
+    &:nth-child(2) {
+      width: 40%;
+    }
+  }
+  td, th {
+    &:last-child {
+      width: 220px;
+    }
+  }
+}
+
+.w-left-pane {
+  @include large {
+    text-align: center;
+  }
+
+  .w-back-button-col {
+    text-align: right;
+
+    @include large {
+      text-align: center;
+    }
+  }
+}
+
+.w-content {
+  @include large {
+    width: 90%;
+  }
+}
+
+.w-lowered-content {
+  @include large {
+    margin-top: 125px;
+  }
+}
+
+.w-breadcrumbs {
+  font-weight: 900;
+  font-size: 24px;
+
+  &, a {
+    color: gray !important;
+  }
+}
+
+.w-other-organizations {
+  margin-top: 15px;
+
+  ul li {
+    position: relative;
+
+    a {
       position: relative;
-
-      .w-sunset-content {
-        @include absolute-center;
-      }
+      font-size: 36px;
+      font-weight: 900;
+      display: inline-block;
+      z-index: 10;
     }
-
+    hr {
+      width: 100px;
+      position: absolute;
+      top: 20px;
+      right: 0;
+      z-index: 9;
+    }
   }
 }
 
-main.w-particles-layout {
-  @include absolute-center-parent-fix;
-  background-image: url(assets/images/backgrounds/particles.jpg);
+.w-button-mini {
+  font-size: 12px     !important;
+  padding: 4px 15px   !important;
+  border-width: 2px   !important;
+  border-radius: 15px !important;
 
-  .w-action-pane {
-    @include absolute-center;
+  .w-icon-arrow-right {
+    @include icon-arrow-right(5px);
+  }
+
+  .w-icon-arrow-left {
+    @include icon-arrow-left(5px);
+  }
+}
+
+hr {
+  height: 0;
+  border: 0;
+  border-bottom: 4px solid $color-pink-red;
+}
+
+.text-green {
+  color: $color-green;
+}
+.text-blue {
+  color: $color-blue-light;
+}
+
+.w-icon-arrow-left {
+  @include icon-arrow-left(7px);
+}
+.w-icon-arrow-right {
+  @include icon-arrow-right(7px);
+}
+.w-icon-plus {
+  color: $color-icon;
+  &:after {
+    font-size: 22px;
+    line-height: 0.75; // A hack to keep the button low.
+    content: '+';
+    vertical-align: middle;
+    font-weight: 600;
+  }
+}
+.w-icon-delete {
+  color: $color-icon;
+  &:after {
+    font-size: 12px;
+    content: 'x';
+    vertical-align: middle;
+    font-weight: bold;
+  }
+}
+
+
+
+.w-button {
+  display: inline-block;
+  line-height: 1;
+
+  .material-icons {
+    color: $color-icon;
+    vertical-align: middle;
+    line-height: 0.75; // A hack to keep the button low.
+  }
+}
+.w-button-mini {
+  .material-icons {
+    font-size: 14px;
   }
 }
