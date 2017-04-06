@@ -29,25 +29,25 @@
                   <li>
                     <b>
                       <span class="text-green">
-                        ${org.wardens}
+                        ${org.wardens.length}
                       </span>
                     </b>
-                    warden<span if.bind="org.wardens != 1">s</span>
+                    warden<span if.bind="org.wardens.length != 1">s</span>
                   </li>
-                  <li><status color.bind="org.status"></status></li>
+                  <li><status color="green"></status></li>
                   <li>
                     <b>
                       <span class="text-green">
-                        ${org.users}
+                        ${org.users.length}
                       </span>
                     </b>
-                    users
+                    user<span if.bind="org.users.length != 1">s</span>
                   </li>
                 </ul>
               </div>
               <div class="col s12 l2 w-organization-details">
                 <hr>
-                <button-details></button-details>
+                <button-details href.bind="organizationRoute(org)"></button-details>
               </div>
             </div>
           </div>

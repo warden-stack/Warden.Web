@@ -5,7 +5,6 @@ export default [
   {
     route: '',
     moduleId: `${modulePrefix}/home/landing`,
-    layoutView: `${layoutPrefix}/sunset-layout.html`,
     name: 'landing',
     title: 'Start',
     settings: {
@@ -14,30 +13,29 @@ export default [
     }
   },
   {
-    route: 'scratch/watchers',
-    moduleId: `${modulePrefix}/scratch/watchers`,
-    name: 'scratch-watchers',
-    title: 'scratch-watchers',
+    route: 'wardens/:wardenId',
+    moduleId: `${modulePrefix}/wardens/wardens-show`,
+    name: 'wardens-show',
+    title: 'wardens-show',
+    settings: {
+      reqLogin: true
+    }
+  },
+  {
+    route: 'organizations',
+    moduleId: `${modulePrefix}/organizations/organizations-index`,
+    name: 'organizations-index',
+    title: 'organizations-index',
     nav: true,
     settings: {
       reqLogin: true
     }
   },
   {
-    route: 'scratch/organizations',
-    moduleId: `${modulePrefix}/scratch/organizations`,
-    name: 'scratch-organizations',
-    title: 'scratch-organizations',
-    nav: true,
-    settings: {
-      reqLogin: true
-    }
-  },
-  {
-    route: 'scratch/organization',
-    moduleId: `${modulePrefix}/scratch/organization`,
-    name: 'scratch-organization',
-    title: 'scratch-organization',
+    route: 'organizations/:organizationId',
+    moduleId: `${modulePrefix}/organizations/organization-show`,
+    name: 'organization-show',
+    title: 'organization-show',
     settings: {
       reqLogin: true
     }
@@ -56,7 +54,6 @@ export default [
   {
     route: 'sign-in',
     moduleId: `${modulePrefix}/account/sign-in`,
-    layoutView: `${layoutPrefix}/sunset-layout.html`,
     name: 'sign-in',
     title: 'Sign in',
     settings: {
@@ -67,7 +64,6 @@ export default [
   {
     route: 'sign-up',
     moduleId: `${modulePrefix}/account/sign-up`,
-    layoutView: `${layoutPrefix}/particles-layout.html`,
     name: 'sign-up',
     title: 'Sign up',
     settings: {
@@ -127,16 +123,16 @@ export default [
       translationKey: 'route.change_password'
     }
   },
-  {
-    route: 'organizations',
-    moduleId: `${modulePrefix}/organizations/organizations`,
-    name: 'organizations',
-    title: 'Organizations',
-    nav: true,
-    settings: {
-      reqLogin: true
-    }
-  },
+  // {
+  //   route: 'organizations',
+  //   moduleId: `${modulePrefix}/organizations/organizations`,
+  //   name: 'organizations',
+  //   title: 'Organizations',
+  //   nav: true,
+  //   settings: {
+  //     reqLogin: true
+  //   }
+  // },
   {
     route: 'organizations/:id/wardens',
     moduleId: `${modulePrefix}/organizations/organization-wardens`,

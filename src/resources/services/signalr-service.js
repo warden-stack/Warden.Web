@@ -14,6 +14,7 @@ export default class SignalRService {
   }
 
   initialize() {
+    return;
     if (this.connected) {
       return;
     }

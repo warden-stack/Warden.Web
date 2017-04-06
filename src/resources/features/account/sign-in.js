@@ -61,7 +61,9 @@ export class SignIn {
     this.sending = true;
     this.toast.info(this.translationService.tr('account.signing_in'));
     let session = await this.userService.signIn(this.account);
+    console.log('session', session)
     if (session.token) {
+      console.log('session.token', session.token)
       this.authService.session = {
         sessionId: session.sessionId,
         sessionKey: session.sessionKey,
@@ -71,7 +73,7 @@ export class SignIn {
         provider: 'warden'
       };
       this.loader.hide();
-      this.router.navigateToRoute('dashboard');
+      this.router.navigateToRoute('organizations-index');
 
       return;
     }

@@ -21,7 +21,7 @@ export class Start {
 
   canActivate() {
     if (this.authService.isLoggedIn) {
-      this.router.navigateToRoute('dashboard');
+      this.router.navigateToRoute('organizations-index');
 
       return false;
     }
@@ -38,7 +38,7 @@ export class Start {
     this.loader.display();
     this.facebookService.login(() => {
       this.loader.hide();
-      this.router.navigateToRoute('dashboard');
+      this.router.navigateToRoute('organizations-index');
 
       return;
     }, () => {

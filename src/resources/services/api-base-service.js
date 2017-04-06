@@ -26,7 +26,7 @@ export default class ApiBaseService {
     this.emptyResponseStatuses = [204, 401];
   }
 
-  async get(path, params = {}, cache = true, cacheKey = null) {
+  async get(path, params = {}, cache = false, cacheKey = null) {
     let pathWithQuery = this.buildPathWithQuery(path, params);
     if (!cache) {
       this.cacheInvalidate(pathWithQuery);

@@ -1,38 +1,39 @@
 <template>
-  <div slot="content">
-    <h1>${'account.sign_in_to_app' | t}</h1>
-    <form submit.delegate="submit()" class="col s12">
+  <main class="w-blue-layout w-background-wolf">
+    <logo></logo>
+    <div class="w-action-pane">
+      <h1>${'account.sign_in_to_app' | t}</h1>
+      <form submit.delegate="submit()" class="col s12">
 
-        <md-input
-          md-placeholder="${'account.email' | t}"
-          md-type="email"
-          md-value.bind="account.email & validate"
-          md-validate="true">
-        </md-input>
+          <md-input
+            md-placeholder="${'account.email' | t}"
+            md-type="email"
+            md-value.bind="account.email & validate"
+            md-validate="true">
+          </md-input>
 
-        <md-input
-          md-placeholder="${'account.password' | t}"
-          md-type="password"
-          md-value.bind="account.password & validate"
-          md-validate="true">
-        </md-input>
+          <md-input
+            md-placeholder="${'account.password' | t}"
+            md-type="password"
+            md-value.bind="account.password & validate"
+            md-validate="true">
+          </md-input>
 
-        <div class="w-button-row">
-          <a route-href="route: landing" class="btn btn-large w-button w-button-red">
-            ${'common.back' | t}
-          </a>
-          <button disabled.bind="sending" class="btn btn-large w-button" type="submit">${'account.sign_in' | t}</button>
-        </div>
+          <button disabled.bind="sending" class="w-button w-button-big" type="submit">${'account.sign_in' | t}</button>
+            <!-- <a route-href="route: landing" class="w-button w-button-big w-button-link">
+              ${'common.back' | t}
+            </a> -->
 
-      <!-- <div class="section">
-        <div class="col s12">
-          ${'account.do_not_remember_password' | t} <a route-href="route: reset-password" >${'common.click_here' | t}</a> ${'account.to_reset_password' | t}
-        </div>
-        <hr/>
-        <div class="col s12">
-          ${'account.do_not_have_account' | t} <a route-href="route: sign-up" >${'common.click_here' | t}</a> ${'account.to_sign_up' | t}
-        </div>
-      </div> -->
-    </form>
-  </div>
+        <!-- <div class="section">
+          <div class="col s12">
+            ${'account.do_not_remember_password' | t} <a route-href="route: reset-password" >${'common.click_here' | t}</a> ${'account.to_reset_password' | t}
+          </div>
+          <hr/>
+          <div class="col s12">
+            ${'account.do_not_have_account' | t} <a route-href="route: sign-up" >${'common.click_here' | t}</a> ${'account.to_sign_up' | t}
+          </div>
+        </div> -->
+      </form>
+    </div>
+  </main>
 </template>

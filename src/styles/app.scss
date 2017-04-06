@@ -302,6 +302,8 @@
 // --------------------------------------------------------------------------
 // New layout as of March 2017
 
+@import 'mixins';
+
 $color-violet-very-dark: #281f2c;
 $color-violet-dark:      #36203f;
 $color-violet-medium:    #480e5e;
@@ -336,15 +338,6 @@ $large-screen:    1200px;
 @mixin large {
   @media only screen and (min-width: $medium-screen-up) { @content };
 }
-
-// @mixin large-or-retina {
-//   @include l {
-//     @content;
-//   }
-//   @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-//     @content;
-//   }
-// }
 
 @mixin med {
   @media only screen and (min-width: $small-screen-up) { @content };
@@ -402,8 +395,6 @@ $color-icon: $color-pink-red;
   border-right: $dimension*1.5 solid $color-icon;
 }
 
-
-
 html,body {
   width: 100%;
   height: 100%;
@@ -443,6 +434,29 @@ html,body {
                       rgba($color-violet-dark, 0.7) 50%
                     ),
                     url($url);
+}
+
+main {
+  @include absolute-center-parent-fix;
+
+  .w-action-pane {
+    @include absolute-center;
+    text-align: center;
+
+    h1 {
+      margin-bottom: 50px !important;
+    }
+
+    form .w-button {
+      margin-top: 30px;
+    }
+  }
+}
+
+.w-action-pane-landing {
+  .w-button-big {
+    min-width: 350px;
+  }
 }
 
 main.w-background-dude {
@@ -587,16 +601,29 @@ main.w-blue-layout {
     border-radius: 20px;
     cursor: pointer;
     transition: border-color .35s ease;
+    background-color: transparent;
 
     &:hover {
       border-color: $color-blue-light;
     }
   }
 
+  .w-button-big {
+    padding: 15px 50px;
+    text-transform: uppercase;
+    border-radius: 50px;
+  }
+
   .w-button-blue {
     border: 3px solid $color-blue-light;
     transition: none;
     background-color: $color-blue-light;
+  }
+
+  .w-button-link {
+    font-size: 15px;
+    text-decoration: underline;
+    border: 0;
   }
 }
 
