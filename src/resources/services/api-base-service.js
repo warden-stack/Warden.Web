@@ -117,4 +117,10 @@ export default class ApiBaseService {
       headers.Authorization = `Bearer ${this.authService.token}`;
     }
   }
+
+  extractErrorMessages(response) {
+    if (response && response.code == 'error') {
+      return response.messages;
+    }
+  }
 }

@@ -4,53 +4,59 @@
   <require from="resources/components/button-details.html"></require>
 
   <main class="w-blue-layout w-background-dude">
-    <div class="row">
-      <div class="col s12 l2">
-        <left-pane></left-pane>
-      </div>
-      <div class="col s12 l9">
-        <div class="w-collection-view w-content">
-          <h1>Organizations</h1>
-          <ul class="w-nav">
-            <li class="w-active">
-              <a href="#">MINE</a>
-            </li>
-            <li>
-              <a href="#">
-                OTHERS
-              </a>
-            </li>
-          </ul>
-          <div class="w-collection-view-content">
-            <div repeat.for="org of organizations" class="row w-organization">
-              <div class="col s12 l10">
-                <h2 class="w-organization-name">${org.name}</h2>
-                <ul class="w-organization-properties">
-                  <li>
-                    <b>
-                      <span class="text-green">
-                        ${org.wardens.length}
-                      </span>
-                    </b>
-                    warden<span if.bind="org.wardens.length != 1">s</span>
-                  </li>
-                  <li><status color="green"></status></li>
-                  <li>
-                    <b>
-                      <span class="text-green">
-                        ${org.users.length}
-                      </span>
-                    </b>
-                    user<span if.bind="org.users.length != 1">s</span>
-                  </li>
-                </ul>
-              </div>
-              <div class="col s12 l2 w-organization-details">
-                <hr>
-                <button-details href.bind="organizationRoute(org)"></button-details>
+    <div class="container">
+      <div class="row">
+        <div class="col s12 l2">
+          <left-pane></left-pane>
+        </div>
+        <div class="col s12 l9">
+          <div class="w-collection-view w-content">
+            <h1>Organizations</h1>
+            <ul class="w-nav">
+              <li class="w-active">
+                <a href="#">MINE</a>
+              </li>
+              <li>
+                <a href="#">
+                  OTHERS
+                </a>
+              </li>
+            </ul>
+            <div class="w-collection-view-content">
+              <div repeat.for="org of organizations" class="row w-organization">
+                <div class="col s12 l10">
+                  <h2 class="w-organization-name">${org.name}</h2>
+                  <ul class="w-organization-properties">
+                    <li>
+                      <b>
+                        <span class="text-green">
+                          ${org.wardens.length}
+                        </span>
+                      </b>
+                      warden<span if.bind="org.wardens.length != 1">s</span>
+                    </li>
+                    <li><status color="green"></status></li>
+                    <li>
+                      <b>
+                        <span class="text-green">
+                          ${org.users.length}
+                        </span>
+                      </b>
+                      user<span if.bind="org.users.length != 1">s</span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col s12 l2 w-organization-details">
+                  <hr>
+                  <button-details href.bind="organizationRoute(org)"></button-details>
+                </div>
               </div>
             </div>
           </div>
+          <a route-href="route: organizationNew" class="w-button w-button-blue">
+            NEW ORGANIZATION
+            <span class="w-icon-plus"></span>
+          </a>
         </div>
       </div>
     </div>

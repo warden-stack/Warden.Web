@@ -81,7 +81,7 @@
     "name_in_use": "Name is in use.",
     "operation_not_found": "Operation has not been found.",
     "organization_not_found": "Organization was not found.",
-    "organization_name_in_use": "Organization name is in use.",    
+    "organization_name_in_use": "Organization name is in use.",
     "session_not_found": "Session has not been found.",
     "text_too_long": "Text is too long.",
     "user_id_in_use": "User identifier is in use.",
@@ -94,6 +94,7 @@
     "apply": "Apply",
     "back": "Back",
     "click_here": "Click here",
+    "create": "Create",
     "delete": "Delete",
     "details": "Details",
     "list": "List",
@@ -114,7 +115,8 @@
   },
   "organization" : {
     "created": "Organization was created.",
-    "name": "Organization name",
+    "name": "Name",
+    "description": "Description",
     "name_is_invalid": "Organization name is invalid.",
     "name_is_required": "Organization name is required"
   },

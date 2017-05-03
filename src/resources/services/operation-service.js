@@ -2,20 +2,16 @@ import {inject} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import AuthService from 'resources/services/auth-service';
 import ApiBaseService from 'resources/services/api-base-service';
-import SignalRService from 'resources/services/signalr-service';
 import * as retry from 'retry';
 
-@inject(EventAggregator, AuthService, ApiBaseService, SignalRService)
+@inject(EventAggregator, AuthService, ApiBaseService)
 export default class OperationService {
-  constructor(eventAggregator, authService, apiBaseService, signalR) {
+  constructor(eventAggregator, authService, apiBaseService) {
     this.eventAggregator = eventAggregator;
     this.authService = authService;
     this.apiBaseService = apiBaseService;
-    this.signalR = signalR;
     this.processedOperations = [];
     this.subscriptions = [];
-    this.signalRTimeoutSeconds = 5;
-    this.signalR.initialize();
     this._initializeOperations();
     this.eventAggregator.subscribe('operation_updated', async message => {
       this.handleOperationUpdated(message);
@@ -51,69 +47,84 @@ export default class OperationService {
   }
 
   async execute(fn) {
-    let response = await fn();
-    let endpoint = response['x-operation'];
-    let resource = response['x-resource'];
+    const response = await fn();
+    const endpoint = response['x-operation'];
+
     if (!endpoint) {
-      return ({success: false, message: 'Operation has not been found.', code: 'error'});
+      return this.handleExecuteError(response);
     }
 
-    let requestId = endpoint.split('/')[1];
-    if (this.signalR.connected && this.authService.isLoggedIn) {
-      //Wait 5 seconds for SignalR to complete - if there's no response then fallback to the API call.
-      this.processedOperations.push({
-        key: endpoint,
-        processed: false,
-        value: { completed: false, resource: resource }
-      });
-      setTimeout(async () => {
-        if (this.isOperationProcessed(requestId)) {
-          return;
-        }
-        await this.tryFetchOperation(endpoint);
-      }, this.signalRTimeoutSeconds * 1000);
-
-      return;
-    }
-    //If user is not authenticated or SignalR is not connected simply fetch the operation result from the API.
-    await this.tryFetchOperation(endpoint);
+    // else {
+    //   const resource = response['x-resource'];
+    //   let requestId = endpoint.split('/')[1];
+    //   if (this.signalR.connected && this.authService.isLoggedIn) {
+    //     //Wait 5 seconds for SignalR to complete - if there's no response then fallback to the API call.
+    //     this.processedOperations.push({
+    //       key: endpoint,
+    //       processed: false,
+    //       value: { completed: false, resource: resource }
+    //     });
+    //     setTimeout(async () => {
+    //       if (this.isOperationProcessed(requestId)) {
+    //         return;
+    //       }
+    //       await this.tryFetchOperation(endpoint);
+    //     }, this.signalRTimeoutSeconds * 1000);
+    //
+    //     return;
+    //   }
+    //   //If user is not authenticated or SignalR is not connected simply fetch the operation result from the API.
+    //   await this.tryFetchOperation(endpoint);
+    // }
   }
 
-  async tryFetchOperation(endpoint) {
-    let retryOperation = retry.operation({
-      retries: 10,
-      minTimeout: 500,
-      maxTimeout: 1000
-    });
-
-    retryOperation.attempt(async currentAttempt => {
-      let operation = await this.fetchOperationState(endpoint);
-      if (operation.completed === false) {
-        retryOperation.retry('Operation has not completed.');
-      } else {
-        this._publishOperationUpdated(operation);
-      }
-    });
-  }
-
-  async fetchOperationState(endpoint, next) {
-    let operation = await this.getOperation(endpoint);
-    if (operation.statusCode === 404) {
-      return { completed: false };
+  handleExecuteError(response) {
+    let errorMessages;
+    if (response.errors.length > 0) {
+      errorMessages = response.errors.map((err) => err.message);
     }
-    if (operation.state === 'created') {
-      return { completed: false };
-    }
-
     return {
-      completed: true,
-      name: operation.name,
-      success: operation.success,
-      code: operation.code,
-      message: operation.message,
-      resource: operation.resource
+      success: false,
+      code: 'error',
+      messages: errorMessages || ['Operation has not been found.']
     };
   }
+
+  // async tryFetchOperation(endpoint) {
+  //   let retryOperation = retry.operation({
+  //     retries: 10,
+  //     minTimeout: 500,
+  //     maxTimeout: 1000
+  //   });
+  //
+  //   retryOperation.attempt(async currentAttempt => {
+  //     let operation = await this.fetchOperationState(endpoint);
+  //     if (operation.completed === false) {
+  //       retryOperation.retry('Operation has not completed.');
+  //     } else {
+  //       this._publishOperationUpdated(operation);
+  //     }
+  //   });
+  // }
+
+  // async fetchOperationState(endpoint, next) {
+  //   let operation = await this.getOperation(endpoint);
+  //   if (operation.statusCode === 404) {
+  //     return { completed: false };
+  //   }
+  //   if (operation.state === 'created') {
+  //     return { completed: false };
+  //   }
+  //
+  //   return {
+  //     completed: true,
+  //     name: operation.name,
+  //     success: operation.success,
+  //     code: operation.code,
+  //     message: operation.message,
+  //     resource: operation.resource
+  //   };
+  // }
 
   async getOperation(endpoint) {
     return await this.apiBaseService.get(endpoint, {}, false);
@@ -154,7 +165,7 @@ export default class OperationService {
   //it will either contain the command name or the event name.
   _publishOperationUpdated(operation) {
     this.subscriptions.forEach(x => {
-      handleSignalRCall(x);
+      // handleSignalRCall(x);
       handleApiCall(x);
     });
 
@@ -170,15 +181,15 @@ export default class OperationService {
       subscriber.onRejected(operation);
     }
 
-    function handleSignalRCall(subscriber) {
-      if (subscriber.event.success === operation.name) {
-        subscriber.onSuccess(operation);
-
-        return;
-      }
-      if (subscriber.event.rejected === operation.name) {
-        subscriber.onRejected(operation);
-      }
-    }
+    // function handleSignalRCall(subscriber) {
+    //   if (subscriber.event.success === operation.name) {
+    //     subscriber.onSuccess(operation);
+    //
+    //     return;
+    //   }
+    //   if (subscriber.event.rejected === operation.name) {
+    //     subscriber.onRejected(operation);
+    //   }
+    // }
   }
 }

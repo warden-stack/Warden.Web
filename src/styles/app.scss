@@ -446,9 +446,18 @@ main {
     h1 {
       margin-bottom: 50px !important;
     }
+  }
 
-    form .w-button {
+  form {
+    .row {
+      margin-bottom: 0;
+    }
+    .w-button {
       margin-top: 30px;
+    }
+    .w-errors {
+      margin-bottom: 30px;
+      color: $color-red;
     }
   }
 }
@@ -470,12 +479,48 @@ main.w-background-wolf {
 }
 
 main.w-blue-layout {
+
+  // Materialize overwrites
+
+  input:not([type]),
+  input[type=text],
+  input[type=password],
+  input[type=email],
+  input[type=url],
+  input[type=time],
+  input[type=date],
+  input[type=datetime],
+  input[type=datetime-local],
+  input[type=tel],
+  input[type=number],
+  input[type=search],
+  textarea.materialize-textarea {
+    &:focus:not([readonly]) {
+      border-bottom: 1px solid $color-blue-light;
+      box-shadow: 0 1px 0 0 $color-blue-light;
+
+      & + label {
+        color: $color-blue-light;
+      }
+    }
+  }
+
+  .md-input-validation {
+    color: $color-red;
+  }
+
+
   width: 100%;
   min-height: 100%;
   padding: 0 20px 20px;
   background-position: top;
   background-size: 100% auto;
   color: white;
+
+  .container {
+    width: 100%;
+    max-width: 9999px;
+  }
 
   a {
     color: white;
@@ -593,7 +638,6 @@ main.w-blue-layout {
   }
 
   .w-button {
-    text-transform: capitalize;
     font-weight: bold;
     font-size: 16px;
     padding: 6px 20px;
@@ -700,7 +744,7 @@ main.w-blue-layout {
   }
   td, th {
     &:last-child {
-      width: 220px;
+      width: 240px;
     }
   }
 }

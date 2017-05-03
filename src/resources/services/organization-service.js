@@ -18,12 +18,7 @@ export default class OrganizationService {
   }
 
   async create(name, description) {
-    let request = {
-      name,
-      description
-    };
-
     return await this.operationService.execute(async ()
-      => await this.apiBaseService.post('organizations', request));
+      => await this.apiBaseService.post('organizations', { name, description }));
   }
 }

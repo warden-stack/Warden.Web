@@ -18,11 +18,7 @@ export default class ApiKeyService {
   }
 
   async create(name) {
-    let request = {
-      name
-    };
-
     return await this.operationService.execute(async ()
-      => await this.apiBaseService.post('api-keys', request));
+      => await this.apiBaseService.post('api-keys', { name }));
   }
 }

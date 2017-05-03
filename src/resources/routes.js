@@ -24,7 +24,7 @@ export default [
   {
     route: 'organizations',
     moduleId: `${modulePrefix}/organizations/organizations-index`,
-    name: 'organizations-index',
+    name: 'organizationsIndex',
     title: 'organizations-index',
     nav: true,
     settings: {
@@ -34,8 +34,17 @@ export default [
   {
     route: 'organizations/:organizationId',
     moduleId: `${modulePrefix}/organizations/organization-show`,
-    name: 'organization-show',
+    name: 'organizationShow',
     title: 'organization-show',
+    settings: {
+      reqLogin: true
+    }
+  },
+  {
+    route: 'organizations/new',
+    moduleId: `${modulePrefix}/organizations/organization-new`,
+    name: 'organizationNew',
+    title: 'organization-new',
     settings: {
       reqLogin: true
     }

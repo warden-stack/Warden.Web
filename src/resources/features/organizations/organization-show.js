@@ -39,7 +39,7 @@ export class OrganizationShow {
   }
 
   organizationRoute(organization) {
-    return this.router.generate('organization-show', {
+    return this.router.generate('organizationShow', {
       organizationId: organization.id
     });
   }

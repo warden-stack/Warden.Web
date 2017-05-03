@@ -3,13 +3,21 @@ import PreLoginRoute from 'resources/middleware/pre-login-route';
 import AuthorizeStep from 'resources/middleware/authorize-step';
 import LoaderHandler from 'resources/middleware/loader-handler';
 import {EventAggregator} from 'aurelia-event-aggregator';
+import TranslationService from 'resources/services/translation-service';
+import {ValidationMessageProvider} from 'aurelia-validation';
 import environment from './environment';
 import routes from 'resources/routes';
 
-@inject(EventAggregator)
+@inject(EventAggregator, TranslationService)
 export class App {
-  constructor(eventAggregator) {
+  constructor(eventAggregator, translationService) {
     this.eventAggregator = eventAggregator;
+
+    // ValidationRules.getMessageKey should work with I18n keys.
+    ValidationMessageProvider.prototype.getMessage = function(key) {
+      const translation = translationService.tr(key);
+      return this.parser.parseMessage(translation);
+    };
   }
   configureRouter(config, router) {
     this.router = router;

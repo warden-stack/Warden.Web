@@ -21,7 +21,7 @@ export class Start {
 
   canActivate() {
     if (this.authService.isLoggedIn) {
-      this.router.navigateToRoute('organizations-index');
+      this.router.navigateToRoute('organizationsIndex');
 
       return false;
     }

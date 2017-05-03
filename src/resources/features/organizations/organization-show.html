@@ -100,7 +100,7 @@
                 </table>
               </section>
             </div>
-            <div class="col s12 l3 offset-l1 w-other-organizations">
+            <div if.bind="otherOrganizations.length > 0 " class="col s12 l3 offset-l1 w-other-organizations">
               <h3>Other organizations</h3>
               <ul>
                 <li repeat.for="org of otherOrganizations">
@@ -109,6 +109,7 @@
               </ul>
             </div>
           </div>
+
         </div>
 
       </div>

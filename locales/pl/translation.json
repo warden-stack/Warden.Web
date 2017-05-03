@@ -125,7 +125,8 @@
   },
   "organization" : {
     "created": "Organizacja została utworzona.",
-    "name": "Nazwa organizacji",
+    "name": "Nazwa",
+    "description": "Opis",
     "name_is_invalid": "Nazwa organizacji jest nieprawidłowa.",
     "name_is_required": "Nazwa organizacji jest wymagana."
   },
