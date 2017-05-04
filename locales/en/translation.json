@@ -49,7 +49,9 @@
   },
   "api_key" : {
     "created": "API key was created.",
-    "name": "API key name"
+    "name": "Key name",
+    "name_is_required": "Key name is required",
+    "name_is_invalid": "Key name is invalid"
   },
   "code": {
     "api_key_name_in_use": "API key name is in use.",

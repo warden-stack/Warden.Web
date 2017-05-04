@@ -1,0 +1,48 @@
+<template>
+  <require from="resources/components/left-pane"></require>
+  <require from="resources/components/form-errors.html"></require>
+
+  <main class="w-blue-layout w-background-dude">
+    <div class="container">
+      <div class="row">
+        <div class="col s12 l2">
+          <left-pane></left-pane>
+        </div>
+        <div class="col s12 l9">
+          <div class="w-content w-lowered-content w-form-view">
+            <div class="row">
+              <div class="col s12">
+                <div class="w-breadcrumbs">
+                  <a href="#">...</a><!--
+                  --><span class="text-blue">/</span><!--
+                  --><a route-href="route: apiKeysIndex">API Keys</a>
+                </div>
+              </div>
+            </div>
+
+            <h1>New API Key</h1>
+            <form submit.delegate="create()">
+              <form-errors error-messages.bind="form.errorMessages"></form-errors>
+
+              <div class="row">
+                <md-input class="col s6"
+                  md-label="${'api_key.name' | t}"
+                  md-value.bind="name & validate"
+                  md-validate="true">
+                </md-input>
+              </div>
+
+              <div class="row">
+                <div class="col s6">
+                  <button md-button disabled.bind="form.processing" class="w-button w-button-blue" type="submit">
+                    ${'common.create' | t}
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</template>

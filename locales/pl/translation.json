@@ -49,7 +49,9 @@
   },
   "api_key" : {
     "created": "Klucz API został utworzony.",
-    "name": "Nazwa klucza API"
+    "name": "Nazwa klucza",
+    "name_is_invalid": "Nazwa klucza jest nieprawidłowa",
+    "name_is_required": "Nazwa klucza jest wymagana"
   },
   "code": {
     "api_key_name_in_use": "Nazwa klucza API jest w użyciu.",

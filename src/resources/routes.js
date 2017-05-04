@@ -13,6 +13,24 @@ export default [
     }
   },
   {
+    route: 'api-keys',
+    moduleId: `${modulePrefix}/api-keys/api-keys-index`,
+    name: 'apiKeysIndex',
+    title: 'api-keys-index',
+    settings: {
+      reqLogin: true
+    }
+  },
+  {
+    route: 'api-keys/new',
+    moduleId: `${modulePrefix}/api-keys/api-keys-new`,
+    name: 'apiKeysNew',
+    title: 'api-keys-new',
+    settings: {
+      reqLogin: true
+    }
+  },
+  {
     route: 'wardens/:wardenId',
     moduleId: `${modulePrefix}/wardens/wardens-show`,
     name: 'wardenShow',
