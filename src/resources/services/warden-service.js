@@ -9,10 +9,12 @@ export default class WardenService {
     this.operationService = operationService;
   }
 
-  async create(organizationId, name) {
-    let request = {
-      name
-    };
+  async get(organizationId, wardenId) {
+    return await this.apiBaseService.get(`organizations/${organizationId}/wardens/${wardenId}`);
+  }
+
+  async create(organizationId, name, enabled=true) {
+    const request = { name, enabled };
 
     return await this.operationService.execute(async ()
       => await this.apiBaseService.post(`organizations/${organizationId}/wardens`, request));

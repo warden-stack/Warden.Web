@@ -15,8 +15,8 @@ export default [
   {
     route: 'wardens/:wardenId',
     moduleId: `${modulePrefix}/wardens/wardens-show`,
-    name: 'wardens-show',
-    title: 'wardens-show',
+    name: 'wardenShow',
+    title: 'warden-show',
     settings: {
       reqLogin: true
     }
@@ -45,6 +45,15 @@ export default [
     moduleId: `${modulePrefix}/organizations/organization-new`,
     name: 'organizationNew',
     title: 'organization-new',
+    settings: {
+      reqLogin: true
+    }
+  },
+  {
+    route: 'organizations/:organizationId/wardens/new',
+    moduleId: `${modulePrefix}/wardens/warden-new`,
+    name: 'wardenNew',
+    title: 'warden-new',
     settings: {
       reqLogin: true
     }

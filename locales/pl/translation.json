@@ -132,6 +132,9 @@
   },
   "warden": {
     "created": "Warden został utworzony.",
-    "name": "Nazwa Wardena"
+    "name": "Nazwa",
+    "enable": "Włącz",
+    "name_is_invalid": "Nazwa wardena jest nieprawidłowa",
+    "name_is_required": "Nazwa wardena jest wymagana"
   }
 }

@@ -449,9 +449,6 @@ main {
   }
 
   form {
-    .row {
-      margin-bottom: 0;
-    }
     .w-button {
       margin-top: 30px;
     }
@@ -505,10 +502,15 @@ main.w-blue-layout {
     }
   }
 
+  [type="checkbox"]:checked + label:before {
+    $border: 2px solid $color-blue-light;
+    border-right:  $border;
+    border-bottom: $border;
+  }
+
   .md-input-validation {
     color: $color-red;
   }
-
 
   width: 100%;
   min-height: 100%;
@@ -556,6 +558,12 @@ main.w-blue-layout {
       &.w-active a {
         border-bottom: 2px solid $color-pink;
       }
+    }
+  }
+
+  .w-form-view {
+    form {
+      margin-top: 80px;
     }
   }
 
@@ -792,7 +800,7 @@ main.w-blue-layout {
 
     a {
       position: relative;
-      font-size: 36px;
+      font-size: 20px;
       font-weight: 900;
       display: inline-block;
       z-index: 10;
@@ -800,7 +808,7 @@ main.w-blue-layout {
     hr {
       width: 100px;
       position: absolute;
-      top: 20px;
+      top: 6px;
       right: 0;
       z-index: 9;
     }

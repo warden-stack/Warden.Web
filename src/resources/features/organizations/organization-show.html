@@ -15,7 +15,8 @@
           <div class="row">
             <div class="col s12">
               <div class="w-breadcrumbs">
-                <a href="#">...</a><span class="text-blue">/</span>Organizations
+                <a href="#">...</a><span class="text-blue">/</span><!--
+                --><a route-href="route: organizationsIndex">Organizations</a>
               </div>
             </div>
           </div>
@@ -44,7 +45,8 @@
                     </th>
                     <th></th>
                     <th class="right-align">
-                      <a href="#" class="w-button w-button-blue w-button-mini">
+                      <a route-href="route: wardenNew; params.bind: {organizationId: org.id}"
+                        class="w-button w-button-blue w-button-mini">
                         ADD WARDEN
                         <span class="w-icon-plus"></span>
                       </a>
@@ -53,8 +55,10 @@
                   <tbody>
                     <tr repeat.for="warden of org.wardens">
                       <td>${warden.name}</td>
-                      <td>${warden.watchers.length} watchers</td>
-                      <td class="right-align"><button-details href="wardens/123"></button-details></td>
+                      <td>${warden.watchers && warden.watchers.length || 0} watchers</td>
+                      <td class="right-align">
+                        <button-details href.bind="wardenRoute(warden)"></button-details>
+                      </td>
                     </tr>
                   </tbody>
                 </table>

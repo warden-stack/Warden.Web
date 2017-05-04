@@ -15,30 +15,33 @@
             <div class="row">
               <div class="col s12">
                 <div class="w-breadcrumbs">
-                  <a href="#">...</a><span class="text-blue">/</span><!--
-                  --><a route-href="route: organizationsIndex">Organizations</a>
+                  <a href="#">...</a><!--
+                  --><span class="text-blue">/</span><!--
+                  --><a route-href="route: organizationsIndex">Organizations</a><!--
+                  --><span class="text-blue">/</span><!--
+                  --><a route-href="route: organizationShow; params.bind: {organizationId: organizationId}">${organization.name}</a>
                 </div>
               </div>
             </div>
 
-            <h1>New Organization</h1>
+            <h1>New Warden</h1>
             <form submit.delegate="create()">
               <form-errors error-messages.bind="form.errorMessages"></form-errors>
 
               <div class="row">
                 <md-input class="col s6"
-                  md-label="${'organization.name' | t}"
+                  md-label="${'warden.name' | t}"
                   md-value.bind="name & validate"
                   md-validate="true">
                 </md-input>
               </div>
+
               <div class="row">
-                <md-input class="col s6"
-                  md-label="${'organization.description' | t}"
-                  md-value.bind="description"
-                  md-validate="true">
-                </md-input>
+                <md-checkbox class="col s6" md-checked.bind="enabled">
+                  ${'warden.enable' | t}
+                </md-checkbox>
               </div>
+
               <div class="row">
                 <div class="col s6">
                   <button md-button disabled.bind="form.processing" class="w-button w-button-blue" type="submit">

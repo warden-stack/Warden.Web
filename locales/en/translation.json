@@ -134,6 +134,9 @@
   },
   "warden": {
     "created": "Warden was created.",
-    "name": "Warden name"
+    "name": "Name",
+    "enable": "Enable",
+    "name_is_invalid": "Warden name is invalid",
+    "name_is_required": "Warden name is required"
   }
 }

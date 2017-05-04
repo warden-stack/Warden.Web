@@ -12,10 +12,10 @@ export class OrganizationShow {
   async activate(params) {
     const { organizationId } = params;
     this.org = await this.organizationService.get(organizationId);
-    console.log(this.org.wardens);
 
     const allOrganizations = await this.organizationService.getAll();
     this.otherOrganizations= allOrganizations.filter((org) => org.id != this.org.id);
+    
     // {
     //   "id": "a295aa48-af69-4fcb-9feb-c4ea9c350d80",
     //   "owner": {
@@ -41,6 +41,13 @@ export class OrganizationShow {
   organizationRoute(organization) {
     return this.router.generate('organizationShow', {
       organizationId: organization.id
+    });
+  }
+
+  wardenRoute(warden) {
+    return this.router.generate('wardenShow', {
+      organizationId: this.org.id,
+      wardenId: warden.id
     });
   }
 }

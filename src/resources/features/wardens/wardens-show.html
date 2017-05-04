@@ -15,7 +15,15 @@
           <div class="row">
             <div class="col s12">
               <div class="w-breadcrumbs">
-                <a href="#">...</a><span class="text-blue">/</span><a href="#">Organizations</a><span class="text-blue">/</span>Warden.io<span class="text-blue">/</span>Watchers
+                <div class="w-breadcrumbs">
+                  <a href="#">...</a><!--
+                  --><span class="text-blue">/</span><!--
+                  --><a route-href="route: organizationsIndex">Organizations</a><!--
+                  --><span class="text-blue">/</span><!--
+                  --><a route-href="route: organizationShow; params.bind: {organizationId: organizationId}">${organization.name}</a><!--
+                  --><span class="text-blue">/</span><!--
+                  -->
+                </div>
               </div>
             </div>
           </div>
