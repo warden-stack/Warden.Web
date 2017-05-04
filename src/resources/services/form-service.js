@@ -8,25 +8,25 @@ import {
 import { MaterializeFormValidationRenderer } from 'aurelia-materialize-bridge';
 
 class Form {
-  constructor(apiBaseService, validationControllerFactory, viewModel) {
+  constructor(apiBaseService, validationControllerFactory) {
     this.apiBaseService = apiBaseService;
-    this.viewModel = viewModel;
-    this.viewModel.validationController = validationControllerFactory.createForCurrentScope();
-    this.viewModel.validationController.validateTrigger = validateTrigger.blur;
-    this.viewModel.validationController.addRenderer(new MaterializeFormValidationRenderer());
+    this.validationController = validationControllerFactory.createForCurrentScope();
+    this.validationController.validateTrigger = validateTrigger.blur;
+    this.validationController.addRenderer(new MaterializeFormValidationRenderer());
   }
   get validationRules() {
     return ValidationRules;
   }
   async process(apiCallFn) {
-    const validationErrors = await this.viewModel.validationController.validate();
+    this.errorMessages = [];
+    const validationErrors = await this.validationController.validate();
     if (validationErrors.length == 0) {
       // Valid, call the API.
-      this.viewModel.sending = true;
+      this.processing = true;
       const response = await apiCallFn();
-      this.viewModel.errorMessages = this.apiBaseService.extractErrorMessages(response);
-      if (this.viewModel.errorMessages) this.viewModel.sending = false;
-      return !this.viewModel.errorMessages;
+      this.errorMessages = this.apiBaseService.extractErrorMessages(response);
+      if (this.errorMessages) this.processing = false;
+      return !this.errorMessages;
     }
   }
 }
@@ -38,7 +38,7 @@ export default class FormService {
     this.validationControllerFactory = validationControllerFactory
   }
 
-  setup(viewModel) {
-    return new Form(this.apiBaseService, this.validationControllerFactory, viewModel);
+  createForm() {
+    return new Form(this.apiBaseService, this.validationControllerFactory);
   }
 }

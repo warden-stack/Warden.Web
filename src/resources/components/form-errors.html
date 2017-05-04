@@ -1,5 +1,5 @@
 <template bindable="errorMessages">
-  <ul class="w-errors" bind.if="errorMessages">
+  <ul class="w-errors" bind.if="errorMessages.length > 0">
     <li repeat.for="errorMessage of errorMessages">${errorMessage}</li>
   </ul>
 </template>

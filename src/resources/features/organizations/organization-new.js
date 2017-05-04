@@ -9,7 +9,7 @@ export class OrganizationNew {
     this.router = router;
     this.organizationService = organizationService;
 
-    this.form = formService.setup(this);
+    this.form = formService.createForm();
     this.form.validationRules.ensure('name')
       .required()
         .withMessageKey('organization.name_is_required')
