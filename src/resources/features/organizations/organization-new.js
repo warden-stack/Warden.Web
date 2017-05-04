@@ -1,15 +1,15 @@
 import {inject} from 'aurelia-framework';
 import { Router } from 'aurelia-router';
-import FormService from 'resources/services/form-service';
+import FormBuilder from 'resources/builders/form-builder';
 import OrganizationService from 'resources/services/organization-service';
 
-@inject(Router, FormService, OrganizationService)
+@inject(Router, FormBuilder, OrganizationService)
 export class OrganizationNew {
-  constructor(router, formService, organizationService) {
+  constructor(router, formBuilder, organizationService) {
     this.router = router;
     this.organizationService = organizationService;
 
-    this.form = formService.createForm();
+    this.form = formBuilder.createForm();
     this.form.validationRules.ensure('name')
       .required()
         .withMessageKey('organization.name_is_required')

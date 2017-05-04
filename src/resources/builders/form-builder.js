@@ -32,7 +32,7 @@ class Form {
 }
 
 @inject(ApiBaseService, ValidationControllerFactory)
-export default class FormService {
+export default class FormBuilder {
   constructor(apiBaseService, validationControllerFactory) {
     this.apiBaseService = apiBaseService;
     this.validationControllerFactory = validationControllerFactory
