@@ -34,6 +34,7 @@ export default class OrganizationModel {
     this.wardens = (data.wardens || []).map((wardenData) => new WardenModel(wardenData));
     this.users = (data.users || []).map((userData) => new UserModel(userData));
     this.owner = new UserModel(data.owner);
+    this.setStatusWaiting();
   }
 
   selectWarden(wardenId) {
@@ -42,5 +43,22 @@ export default class OrganizationModel {
 
   createOrUpdateWatcher(wardenId, watcherData) {
     this.selectWarden(wardenId).createOrUpdateWatcher(watcherData);
+    if (this.wardens.every((warden) => warden.isStatusOk)) {
+      this.setStatusOk();
+    } else {
+      this.setStatusFail();
+    }
+  }
+
+  setStatusFail() {
+    this.status = 'fail';
+  }
+
+  setStatusOk() {
+    this.status = 'ok';
+  }
+
+  setStatusWaiting() {
+    this.status = 'waiting';
   }
 }

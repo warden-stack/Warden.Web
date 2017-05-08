@@ -666,7 +666,7 @@ main.w-blue-layout {
       &:nth-child(2) {  background-color: tint(lighten($color-red, 0.33), 33%); }
       &:nth-child(3) {  background-color: $color-red; }
     }
-    &.w-off div {
+    &.w-waiting div {
       &:nth-child(1) { background-color: tint(lighten(gray, 0.66), 66%); }
       &:nth-child(2) { background-color: tint(lighten(gray, 0.33), 33%); }
       &:nth-child(3) { background-color: gray; }
