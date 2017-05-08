@@ -31,7 +31,7 @@ export default [
     }
   },
   {
-    route: 'wardens/:wardenId',
+    route: 'organizations/:organizationId/wardens/:wardenId',
     moduleId: `${modulePrefix}/wardens/wardens-show`,
     name: 'wardenShow',
     title: 'warden-show',
