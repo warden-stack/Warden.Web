@@ -148,7 +148,7 @@
             "name": "aurelia-validation",
             "path": "../node_modules/aurelia-validation/dist/amd",
             "main": "aurelia-validation"
-          },  
+          },
           {
             "name": "aurelia-i18n",
             "path": "../node_modules/aurelia-i18n/dist/amd",
@@ -212,6 +212,11 @@
             "resources": [
               "**/*.{css,html}"
             ]
+          },
+          {
+            "name": "socket.io-client",
+            "path": "../node_modules/socket.io-client/dist",
+            "main": "socket.io"
           }
         ]
       }

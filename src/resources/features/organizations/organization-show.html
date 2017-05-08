@@ -27,7 +27,7 @@
               <p if.bind="org.description">${org.description}</p>
             </div>
             <div class="col s12 m3 l2 w-header-status">
-              <status color.bind="org.status"></status>
+              <status type.bind="org.status"></status>
               <hr>
             </div>
           </div>
@@ -55,7 +55,8 @@
                   <tbody>
                     <tr repeat.for="warden of org.wardens">
                       <td>${warden.name}</td>
-                      <td>${warden.watchers && warden.watchers.length || 0} watchers</td>
+                      <td>${warden.watchersCount} watcher<span if.bind="warden.watchersCount != 1">s</span></td>
+                      <td><status type.bind="warden.status"></status></td>
                       <td class="right-align">
                         <button-details href.bind="wardenRoute(warden)"></button-details>
                       </td>

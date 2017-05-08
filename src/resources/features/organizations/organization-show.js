@@ -1,41 +1,45 @@
 import {inject} from 'aurelia-dependency-injection';
 import {Router} from 'aurelia-router';
 import OrganizationService from 'resources/services/organization-service';
+import OrganizationModel from 'resources/models/organization-model';
+import io from 'socket.io-client';
 
 @inject(Router, OrganizationService)
 export class OrganizationShow {
   constructor(router, organizationService) {
+    // TODO: Move to a global config somewhere.
+    const SOCKET_URL = 'http://207.154.218.86:15000';
+
     this.router = router;
     this.organizationService = organizationService;
+    this.socket = io.connect(SOCKET_URL);
   }
 
   async activate(params) {
     const { organizationId } = params;
-    this.org = await this.organizationService.get(organizationId);
 
+    // TODO: Eventualy the model initialization should occur in the api service!
+    this.org = new OrganizationModel(await this.organizationService.get(organizationId));
+    this.loadOtherOrganizations()
+    this.handleWebsockets();
+  }
+
+  async loadOtherOrganizations() {
     const allOrganizations = await this.organizationService.getAll();
-    this.otherOrganizations= allOrganizations.filter((org) => org.id != this.org.id);
-    
-    // {
-    //   "id": "a295aa48-af69-4fcb-9feb-c4ea9c350d80",
-    //   "owner": {
-    //     "userId": "dbac93f106724ab7a576598b63c12962",
-    //     "email": "snicky700@gmail.com",
-    //     "role": "owner",
-    //     "createdAt": "2017-04-01T18:52:42.898Z"
-    //   },
-    //   "name": "default",
-    //   "description": null,
-    //   "users": [
-    //     {
-    //       "userId": "dbac93f106724ab7a576598b63c12962",
-    //       "email": "snicky700@gmail.com",
-    //       "role": "owner",
-    //       "createdAt": "2017-04-01T18:52:42.898Z"
-    //     }
-    //   ],
-    //   "wardens": []
-    // }
+    this.otherOrganizations= allOrganizations.filter((org) => org.id != this.org.id)
+                                             .map((orgData) => new OrganizationModel(orgData));
+  }
+
+  handleWebsockets() {
+    this.socket.on('warden_check_result_processed', this.socketCallback.bind(this));
+  }
+
+  socketCallback(data) {
+    this.org.createOrUpdateWatcher(data.wardenId, data.result.watcherCheckResult);
+  }
+
+  deactivate() {
+    this.socket.off('warden_check_result_processed', this.socketCallback.bind(this));
   }
 
   organizationRoute(organization) {

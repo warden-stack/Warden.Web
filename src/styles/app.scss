@@ -632,16 +632,44 @@ main.w-blue-layout {
       margin-right:  2px;
     }
 
-    &.w-green div {
+    &.w-ok, &.w-fail {
+      div {
+        opacity: 0;
+        animation-duration: 2.5s;
+        animation-iteration-count: infinite;
+
+        @keyframes first-dot {
+          0%    {opacity: 0;}
+          16.6% {opacity: 1;}
+        }
+        @keyframes second-dot {
+          0%  {opacity: 0;}
+          33% {opacity: 1;}
+        }
+        @keyframes third-dot {
+          0%  {opacity: 0;}
+          50% {opacity: 1;}
+        }
+        &:nth-child(1) { animation-name: first-dot; }
+        &:nth-child(2) { animation-name: second-dot; }
+        &:nth-child(3) { animation-name: third-dot; }
+      }
+    }
+
+    &.w-ok div {
       &:nth-child(1) { background-color: tint(lighten($color-green, 0.66), 66%); }
       &:nth-child(2) { background-color: tint(lighten($color-green, 0.33), 33%); }
       &:nth-child(3) { background-color: $color-green; }
     }
-
-    &.w-red div {
-      &:nth-child(1) { background-color: tint(lighten($color-red, 0.66), 66%); }
-      &:nth-child(2) { background-color: tint(lighten($color-red, 0.33), 33%); }
-      &:nth-child(3) { background-color: $color-red; }
+    &.w-fail div {
+      &:nth-child(1) {  background-color: tint(lighten($color-red, 0.66), 66%); }
+      &:nth-child(2) {  background-color: tint(lighten($color-red, 0.33), 33%); }
+      &:nth-child(3) {  background-color: $color-red; }
+    }
+    &.w-off div {
+      &:nth-child(1) { background-color: tint(lighten(gray, 0.66), 66%); }
+      &:nth-child(2) { background-color: tint(lighten(gray, 0.33), 33%); }
+      &:nth-child(3) { background-color: gray; }
     }
   }
 
@@ -731,13 +759,13 @@ main.w-blue-layout {
   }
 }
 
-.w-table-wardens, .w-table-users, .w-table-watchers {
+.w-table-wardens, .w-table-users, .w-table-watchers, .w-table-api-keys {
   table-layout: fixed;
 }
-.w-table-wardens, .w-table-watchers {
+.w-table-wardens, .w-table-watchers, .w-table-api-keys {
   td, th {
     &:last-child {
-      width: 150px;
+      width: 160px;
     }
   }
 }
@@ -754,6 +782,15 @@ main.w-blue-layout {
     &:last-child {
       width: 240px;
     }
+  }
+}
+
+.w-table-api-keys {
+  .w-api-key {
+    // If it's just `display: none`, the script won't be able to copy its
+    // text to clipboard.
+    font-size: 0;
+    opacity: 0;
   }
 }
 
