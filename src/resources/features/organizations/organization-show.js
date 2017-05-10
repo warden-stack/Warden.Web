@@ -8,7 +8,7 @@ import io from 'socket.io-client';
 export class OrganizationShow {
   constructor(router, organizationService) {
     // TODO: Move to a global config somewhere.
-    const SOCKET_URL = 'http://207.154.218.86:15000';
+    const SOCKET_URL = 'https://services.getwarden.net';
 
     this.router = router;
     this.organizationService = organizationService;

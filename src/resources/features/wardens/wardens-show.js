@@ -10,7 +10,7 @@ import io from 'socket.io-client';
 export class WardensShow {
   constructor(organizationService, wardenService) {
     // TODO: Move to a global config somewhere.
-    const SOCKET_URL = 'http://207.154.218.86:15000';
+    const SOCKET_URL = 'https://services.getwarden.net';
 
     this.organizationService = organizationService;
     this.wardenService = wardenService;
