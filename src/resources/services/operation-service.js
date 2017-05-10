@@ -2,18 +2,22 @@ import {inject} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import AuthService from 'resources/services/auth-service';
 import ApiBaseService from 'resources/services/api-base-service';
+import WebsocketService from 'resources/services/websocket-service';
 import * as retry from 'retry';
 
-@inject(EventAggregator, AuthService, ApiBaseService)
+@inject(EventAggregator, AuthService, ApiBaseService, WebsocketService)
 export default class OperationService {
-  constructor(eventAggregator, authService, apiBaseService) {
+  constructor(eventAggregator, authService, apiBaseService, websocket) {
     this.eventAggregator = eventAggregator;
     this.authService = authService;
     this.apiBaseService = apiBaseService;
+    this.websocket = websocket;
+    this.websocket.initialize();
     this.processedOperations = [];
     this.subscriptions = [];
+    this.websocketTimeoutSeconds = 5;
     this._initializeOperations();
-    this.eventAggregator.subscribe('operation_updated', async message => {
+    this.eventAggregator.subscribe('operation:updated', async message => {
       this.handleOperationUpdated(message);
     });
   }
@@ -22,11 +26,10 @@ export default class OperationService {
     this.operations = [
       map('sign_up', 'signed_up'),
       map('set_new_password', 'new_password_set'),
+      map('upload_avatar', 'avatar_uploaded'),
+      map('remove_avatar', 'avatar_removed'),
       map('change_username', 'username_changed'),
-      map('change_password', 'password_changed'),
-      map('create_organization', 'organization_created'),
-      map('create_warden', 'warden_created'),
-      map('create_api_key', 'api_key_created')
+      map('change_password', 'password_changed')
     ];
 
     function map(name, event) {
@@ -47,84 +50,69 @@ export default class OperationService {
   }
 
   async execute(fn) {
-    const response = await fn();
-    const endpoint = response['x-operation'];
-
+    let response = await fn();
+    let endpoint = response['x-operation'];
+    let resource = response['x-resource'];
     if (!endpoint) {
-      return this.handleExecuteError(response);
+      return ({success: false, message: 'Operation has not been found.', code: 'error'});
     }
 
-    // else {
-    //   const resource = response['x-resource'];
-    //   let requestId = endpoint.split('/')[1];
-    //   if (this.signalR.connected && this.authService.isLoggedIn) {
-    //     //Wait 5 seconds for SignalR to complete - if there's no response then fallback to the API call.
-    //     this.processedOperations.push({
-    //       key: endpoint,
-    //       processed: false,
-    //       value: { completed: false, resource: resource }
-    //     });
-    //     setTimeout(async () => {
-    //       if (this.isOperationProcessed(requestId)) {
-    //         return;
-    //       }
-    //       await this.tryFetchOperation(endpoint);
-    //     }, this.signalRTimeoutSeconds * 1000);
-    //
-    //     return;
-    //   }
-    //   //If user is not authenticated or SignalR is not connected simply fetch the operation result from the API.
-    //   await this.tryFetchOperation(endpoint);
-    // }
+    let requestId = endpoint.split('/')[1];
+    if (this.websocket.connected && this.authService.isLoggedIn) {
+      //Wait 5 seconds for websocket to complete - if there's no response then fallback to the API call.
+      this.processedOperations.push({
+        key: endpoint,
+        processed: false,
+        value: { completed: false, resource: resource }
+      });
+      setTimeout(async () => {
+        if (this.isOperationProcessed(requestId)) {
+          return;
+        }
+        await this.tryFetchOperation(endpoint);
+      }, this.websocketTimeoutSeconds * 1000);
+
+      return;
+    }
+    //If user is not authenticated or websocket is not connected simply fetch the operation result from the API.
+    await this.tryFetchOperation(endpoint);
   }
 
-  handleExecuteError(response) {
-    let errorMessages;
-    if (response.errors.length > 0) {
-      errorMessages = response.errors.map((err) => err.message);
+  async tryFetchOperation(endpoint) {
+    let retryOperation = retry.operation({
+      retries: 10,
+      minTimeout: 500,
+      maxTimeout: 1000
+    });
+
+    retryOperation.attempt(async currentAttempt => {
+      let operation = await this.fetchOperationState(endpoint);
+      if (operation.completed === false) {
+        retryOperation.retry('Operation has not completed.');
+      } else {
+        this._publishOperationUpdated(operation);
+      }
+    });
+  }
+
+  async fetchOperationState(endpoint, next) {
+    let operation = await this.getOperation(endpoint);
+    if (operation.statusCode === 404) {
+      return { completed: false };
     }
+    if (operation.state === 'created') {
+      return { completed: false };
+    }
+
     return {
-      success: false,
-      code: 'error',
-      messages: errorMessages || ['Operation has not been found.']
+      completed: true,
+      name: operation.name,
+      success: operation.success,
+      code: operation.code,
+      message: operation.message,
+      resource: operation.resource
     };
   }
-
-  // async tryFetchOperation(endpoint) {
-  //   let retryOperation = retry.operation({
-  //     retries: 10,
-  //     minTimeout: 500,
-  //     maxTimeout: 1000
-  //   });
-  //
-  //   retryOperation.attempt(async currentAttempt => {
-  //     let operation = await this.fetchOperationState(endpoint);
-  //     if (operation.completed === false) {
-  //       retryOperation.retry('Operation has not completed.');
-  //     } else {
-  //       this._publishOperationUpdated(operation);
-  //     }
-  //   });
-  // }
-
-  // async fetchOperationState(endpoint, next) {
-  //   let operation = await this.getOperation(endpoint);
-  //   if (operation.statusCode === 404) {
-  //     return { completed: false };
-  //   }
-  //   if (operation.state === 'created') {
-  //     return { completed: false };
-  //   }
-  //
-  //   return {
-  //     completed: true,
-  //     name: operation.name,
-  //     success: operation.success,
-  //     code: operation.code,
-  //     message: operation.message,
-  //     resource: operation.resource
-  //   };
-  // }
 
   async getOperation(endpoint) {
     return await this.apiBaseService.get(endpoint, {}, false);
@@ -132,7 +120,6 @@ export default class OperationService {
 
   getProcessedOperation(requestId) {
     let key = `operations/${requestId}`;
-
     return this.processedOperations.find(x => x.key === key);
   }
 
@@ -150,7 +137,6 @@ export default class OperationService {
     if (processedOperation === null || typeof processedOperation === 'undefined') {
       return;
     }
-
     processedOperation.processed = true;
     let operation = processedOperation.value;
     operation.name = message.name;
@@ -161,11 +147,11 @@ export default class OperationService {
     this._publishOperationUpdated(operation);
   }
 
-  //Depends whether the operation comes from the SignalR or API
+  //Depends whether the operation comes from the Websocket or API
   //it will either contain the command name or the event name.
   _publishOperationUpdated(operation) {
     this.subscriptions.forEach(x => {
-      // handleSignalRCall(x);
+      handleWebsocketCall(x);
       handleApiCall(x);
     });
 
@@ -181,15 +167,15 @@ export default class OperationService {
       subscriber.onRejected(operation);
     }
 
-    // function handleSignalRCall(subscriber) {
-    //   if (subscriber.event.success === operation.name) {
-    //     subscriber.onSuccess(operation);
-    //
-    //     return;
-    //   }
-    //   if (subscriber.event.rejected === operation.name) {
-    //     subscriber.onRejected(operation);
-    //   }
-    // }
+    function handleWebsocketCall(subscriber) {
+      if (subscriber.event.success === operation.name) {
+        subscriber.onSuccess(operation);
+
+        return;
+      }
+      if (subscriber.event.rejected === operation.name) {
+        subscriber.onRejected(operation);
+      }
+    }
   }
 }
