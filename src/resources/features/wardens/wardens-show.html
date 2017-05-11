@@ -52,7 +52,7 @@
                 <tr repeat.for="watcherData of watchersData">
                   <td>${watcherData.watcherName}</td>
                   <td>${watcherData.watcherType}</td>
-                  <td><status type="${watcherData.errors && watcherData.errors.length > 0 ? 'ok' : 'fail'}"></status></td>
+                  <td><status type="${watcherData.errors && watcherData.errors.length > 0 ? 'fail' : 'ok'}"></status></td>
                   <!-- <td>uptime <span class="text-green">${4274220 | numberUptime}</span></td> -->
                   <td class="right-align"><button-details></button-details></td>
                 </tr>
