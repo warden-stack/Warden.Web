@@ -25,7 +25,7 @@ export default class WardenModel {
   }
 
   setStatus() {
-    for (let watcherData of this.watchersData) {
+    for (let watcherData of Object.values(this.watchersData)) {
       if (watcherData.errors && watcherData.errors.length > 0) {
         this.setStatusFail();
         return;
