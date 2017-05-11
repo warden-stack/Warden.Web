@@ -21,11 +21,25 @@ export default class WardenModel {
     this.watchersCount = Object.keys(this.watchersData).length;
     // TODO: This line is nonsense, but let's keep it since we don't have
     //       any status on watchers yet.
+    this.setStatus();
+  }
+
+  setStatus() {
+    for (let watcherData of this.watchersData) {
+      if (watcherData.errors && watcherData.errors.length > 0) {
+        this.setStatusFail();
+        return;
+      }
+    }
     this.setStatusOk();
   }
 
   setStatusOk() {
     this.status = 'ok';
+  }
+
+  setStatusFail() {
+    this.status = 'fail';
   }
 
   setStatusWaiting() {
@@ -34,5 +48,9 @@ export default class WardenModel {
 
   isStatusOk() {
     this.status == 'ok';
+  }
+
+  isStatusFail() {
+    this.status == 'fail';
   }
 }
